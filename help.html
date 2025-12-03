@@ -1,175 +1,518 @@
 <!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<title>Help - User Manual</title>
-		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
-		<link rel="stylesheet" href="help.css" />
-	</head>
-	<body>
-		<header class="topbar">
-			<a href="intro.html" class="back-btn" aria-label="Back">
-				<span class="material-symbols-outlined">arrow_back</span>
-			</a>
-			<div class="topbar-title">Help</div>
-			<div class="topbar-spacer"></div>
-		</header>
 
-		<main class="container">
-			<aside class="sidebar">
-				<div class="card">
-					<nav aria-label="Help topics">
-						<a href="#getting-started"><span class="icon">GS</span> Getting Started</a>
-						<a href="#account"><span class="icon">AC</span> Accounts & Login</a>
-						<a href="#privacy"><span class="icon">PR</span> Privacy & Safety</a>
-						<a href="#games"><span class="icon">GM</span> Games & Practice</a>
-						<a href="#contact"><span class="icon">CS</span> Contact Support</a>
-					</nav>
-				</div>
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>Help - User Manual</title>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
 
-				<div class="card">
-					<h4 style="margin-top:4px">Popular</h4>
-					<ul style="padding-left:18px;color:var(--muted)">
-						<li><a href="#how-to-play">How to play the games</a></li>
-						<li><a href="#reset-password">Reset your password</a></li>
-						<li><a href="#privacy-settings">Control privacy</a></li>
-					</ul>
-				</div>
-			</aside>
+</head>
 
-			<section class="main">
-				
+<body>
+	<header class="topbar">
+		<a href="intro.html" class="back-btn" aria-label="Back">
+			<span class="material-symbols-outlined">arrow_back</span>
+		</a>
+		<div class="topbar-title">Help</div>
+		<div class="topbar-spacer"></div>
+	</header>
+	<style>
+		:root {
+			--fb-blue: #1877f2;
+			--bg: #f0f2f5;
+			--card: #ffffff;
+			--muted: #90949c;
+			--max-width: 1100px;
+		}
 
-				
-				<div class="grid">
-					<div class="card">
-						<h2 id="getting-started">Getting Started</h2>
-						<p style="color:var(--muted)">Quick-start answers and an overview to help new users get familiar with the platform.</p>
-						<div>
-							<div class="topic">
-								<div style="flex:1">
-									<h3>What is this site?</h3>
-									<p>Learn what the ASL site offers, including games, practice tools, and memory cards to help learn sign language.</p>
-								</div>
-							</div>
-							<div class="topic">
-								<div style="flex:1">
-									<h3>How to sign up</h3>
-									<p>Step-by-step guide to create an account or start using the site anonymously.</p>
-								</div>
-							</div>
-						</div>
-					</div>
+		* {
+			box-sizing: border-box
+		}
 
-					<div class="card">
-						<h2 id="account">Accounts & Login</h2>
-						<p style="color:var(--muted)">If you're having trouble signing in or managing your profile, start here.</p>
-						<div>
-							<div class="topic">
-								<div style="flex:1">
-									<h3 id="reset-password">Resetting your password</h3>
-									<p>Instructions for resetting your password, and troubleshooting common login mistakes.</p>
-								</div>
-							</div>
-							<div class="topic">
-								<div style="flex:1">
-									<h3>Linking accounts</h3>
-									<p>How to link multiple sign-in providers or email addresses to your profile.</p>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
+		html,
+		body {
+			height: 100%
+		}
 
-				<div class="card">
-					<h2 id="detailed-faq">Frequently Asked Questions</h2>
-					<div id="faq" class="">
-						<div class="faq-item">
-							<div class="faq-question" data-keywords="play games start playing" tabindex="0">
-								<span class="faq-q-text">How do I start a Practice?</span>
-								<span class="faq-toggle">+</span>
-							</div>
-							<div class="faq-answer">To start a Practice, go to the 'Practice' page, select a mode, and press Play. You can choose difficulty to match your level.</div>
-						</div>
+		body {
+			margin: 0;
+			font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+			background: var(--bg);
+			color: #050505;
+		}
 
-						<div class="faq-item">
-							<div class="faq-question" data-keywords="offline content download memory" tabindex="0">
-								<span class="faq-q-text">Can I study offline?</span>
-								<span class="faq-toggle">+</span>
-							</div>
-							<div class="faq-answer">No. The site does not currently have a fully offline mode.</div>
-						</div>
+		.topbar {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			gap: 0;
+			padding: 1rem 1.5rem;
+			background: #FFFFFF;
+			color: #050505;
+			position: sticky;
+			top: 0;
+			z-index: 10;
+			box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+			border-bottom: 1px solid #E4E6EB;
+		}
 
-						<div class="faq-item">
-							<div class="faq-question" data-keywords="privacy data tracking" tabindex="0">
-								<span class="faq-q-text">How is my data used?</span>
-								<span class="faq-toggle">+</span>
-							</div>
-							<div class="faq-answer">We only use limited data for site performance. Visit the Privacy page for full details and how to control your settings.</div>
-						</div>
-					</div>
-				</div>
+		.topbar .back-btn {
+			background: none;
+			border: none;
+			cursor: pointer;
+			padding: 0.5rem;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			color: #050505;
+			text-decoration: none;
+			border-radius: 50%;
+			transition: background 0.2s ease
+		}
 
-				<div class="card" id="contact">
-					<h2>Contact Support</h2>
-					<p style="color:var(--muted)">If you need more help, send us a message and we'll get back to you as soon as possible.</p>
-					<form id="contactForm">
-						<div style="display:flex;gap:8px;flex-direction:column">
-							<input type="text" placeholder="Your name" required style="padding:10px;border-radius:6px;border:1px solid #e0e0e0" />
-							<input type="email" placeholder="Email address" required style="padding:10px;border-radius:6px;border:1px solid #e0e0e0" />
-							<textarea placeholder="How can we help?" rows="4" style="padding:10px;border-radius:6px;border:1px solid #e0e0e0"></textarea>
-							<div style="display:flex;justify-content:flex-end"><button class="btn">Send message</button></div>
-						</div>
-					</form>
-				</div>
+		.topbar .back-btn:hover {
+			background: #F0F2F5
+		}
 
-				<footer>
-					<small>&copy; ASL Help • <a href="privacy.html">Privacy</a> • <a href="terms.html">Terms</a></small>
-				</footer>
-			</section>
-		</main>
+		.topbar .back-btn:active {
+			background: #E4E6EB
+		}
 
-		<script>
-			// Accordion functionality
-			document.querySelectorAll('.faq-question').forEach(function(q){
-				q.addEventListener('click', function(){
-					const answer = q.nextElementSibling;
-					const toggle = q.querySelector('.faq-toggle');
-					if(answer.style.maxHeight){
-						answer.style.maxHeight = null; toggle.textContent = '+';
-					} else {
-						// collapse others
-						document.querySelectorAll('.faq-answer').forEach(function(a){a.style.maxHeight = null;});
-						document.querySelectorAll('.faq-toggle').forEach(function(t){t.textContent = '+'});
-						answer.style.maxHeight = answer.scrollHeight + 'px'; toggle.textContent = '-';
-					}
-				});
-				q.addEventListener('keydown', function(e){ if(e.key === 'Enter' || e.key === ' ') q.click(); });
-			});
+		.topbar .material-symbols-outlined {
+			font-size: 24px
+		}
 
-			// Search filtering
-			const search = document.getElementById('search');
-			const topSearch = document.getElementById('topSearch');
-			const clearBtn = document.getElementById('clearSearch');
-			function filterFAQs(query){
-				const items = document.querySelectorAll('.faq-item');
-				items.forEach(function(it){
-					const q = it.querySelector('.faq-question .faq-q-text').textContent.toLowerCase();
-					const keywords = it.querySelector('.faq-question').getAttribute('data-keywords') || '';
-					const match = q.includes(query) || keywords.includes(query);
-					it.style.display = match || query === '' ? '' : 'none';
-				});
+		.topbar-title {
+			font-size: 1.25rem;
+			font-weight: 700;
+			color: #050505;
+			flex: 1;
+			text-align: center
+		}
+
+		.topbar-spacer {
+			width: 40px
+		}
+
+		.topbar .brand {
+			font-weight: 700;
+			font-size: 22px;
+			display: flex;
+			align-items: center;
+			gap: 8px
+		}
+
+		.topbar .brand img {
+			height: 30px;
+			width: 30px;
+			border-radius: 6px
+		}
+
+		.topbar .search {
+			flex: 1;
+			display: flex;
+			align-items: center;
+			padding: 6px 12px;
+			border-radius: 18px;
+			background: rgba(255, 255, 255, 0.18);
+			gap: 8px
+		}
+
+		.topbar .search input {
+			flex: 1;
+			border: 0;
+			background: transparent;
+			color: inherit;
+			font-size: 14px;
+			outline: none
+		}
+
+		.topbar .avatar {
+			width: 36px;
+			height: 36px;
+			border-radius: 50%;
+			background: #fff;
+			display: inline-block
+		}
+
+		.container {
+			max-width: var(--max-width);
+			margin: 24px auto;
+			padding: 0 18px;
+			display: flex;
+			gap: 20px
+		}
+
+		.sidebar {
+			width: 260px;
+			min-width: 220px;
+			align-self: flex-start
+		}
+
+		.sidebar .card {
+			background: var(--card);
+			border-radius: 8px;
+			padding: 12px;
+			margin-bottom: 16px
+		}
+
+		.sidebar nav a {
+			display: flex;
+			gap: 12px;
+			align-items: center;
+			padding: 8px;
+			border-radius: 6px;
+			color: #050505;
+			text-decoration: none
+		}
+
+		.sidebar nav a:hover {
+			background: var(--bg)
+		}
+
+		.main {
+			flex: 1
+		}
+
+		.page-header {
+			display: flex;
+			flex-direction: column;
+			gap: 8px;
+			margin-bottom: 12px
+		}
+
+		.page-header h1 {
+			margin: 0;
+			font-size: 24px
+		}
+
+		.page-header p {
+			margin: 0;
+			color: var(--muted)
+		}
+
+		.search-card {
+			display: flex;
+			gap: 10px;
+			align-items: center;
+			background: var(--card);
+			padding: 16px;
+			border-radius: 8px;
+			margin-bottom: 16px
+		}
+
+		.search-card input {
+			flex: 1;
+			padding: 12px;
+			border-radius: 6px;
+			border: 1px solid #e0e0e0;
+			font-size: 15px
+		}
+
+		.breadcrumbs {
+			display: flex;
+			gap: 8px;
+			color: var(--muted);
+			font-size: 13px
+		}
+
+		.grid {
+			display: grid;
+			grid-template-columns: repeat(2, 1fr);
+			gap: 16px
+		}
+
+		.topic {
+			background: var(--card);
+			border-radius: 8px;
+			padding: 12px;
+			display: flex;
+			gap: 10px;
+			align-items: flex-start
+		}
+
+		.topic h3 {
+			margin: 0;
+			font-size: 16px
+		}
+
+		.topic p {
+			margin: 4px 0;
+			color: var(--muted);
+			font-size: 14px
+		}
+
+		.card {
+			background: var(--card);
+			border-radius: 8px;
+			padding: 12px;
+			margin-bottom: 16px
+		}
+
+		.faq-item {
+			border-bottom: 1px solid #eee;
+			padding: 12px 0
+		}
+
+		.faq-question {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			gap: 12px;
+			cursor: pointer
+		}
+
+		.faq-q-text {
+			font-weight: 600
+		}
+
+		.faq-answer {
+			max-height: 0;
+			overflow: hidden;
+			transition: max-height 220ms ease;
+			font-size: 15px;
+			padding-top: 8px;
+			color: var(--muted)
+		}
+
+		.btn {
+			padding: 8px 12px;
+			border-radius: 6px;
+			border: 0;
+			background: var(--fb-blue);
+			color: #fff;
+			cursor: pointer
+		}
+
+		.small {
+			font-size: 13px;
+			padding: 6px 10px
+		}
+
+		footer {
+			margin: 24px 0;
+			color: var(--muted);
+			text-align: center
+		}
+
+		/* Responsive */
+		@media (max-width:900px) {
+			.container {
+				padding: 0 12px
 			}
-			search.addEventListener('input', function(){ filterFAQs(this.value.trim().toLowerCase()); });
-			topSearch.addEventListener('input', function(){ search.value = this.value; filterFAQs(this.value.trim().toLowerCase()); });
-			clearBtn.addEventListener('click', function(){ search.value = ''; topSearch.value = ''; filterFAQs(''); search.focus(); });
 
-			// Set initial state for first FAQ open on wider screens
-			window.addEventListener('load', function(){
-				const first = document.querySelector('.faq-answer'); if(first){ first.style.maxHeight = first.scrollHeight+'px'; document.querySelector('.faq-toggle').textContent = '-'; }
+			.grid {
+				grid-template-columns: 1fr
+			}
+
+			.sidebar {
+				display: none
+			}
+		}
+
+		@media (max-width:500px) {
+			.topbar {
+				padding: 8px
+			}
+
+			.topbar .brand {
+				font-size: 18px
+			}
+
+			.topbar .search {
+				display: none
+			}
+
+			.topbar .avatar {
+				width: 32px;
+				height: 32px
+			}
+		}
+
+		/* small helpers */
+		.icon {
+			width: 36px;
+			height: 36px;
+			border-radius: 8px;
+			background: #e9eefb;
+			color: var(--fb-blue);
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			font-weight: 700
+		}
+
+		.faq-item:last-child {
+			border-bottom: 0
+		}
+	</style>
+
+	<main class="container">
+		<aside class="sidebar">
+			<div class="card">
+				<nav aria-label="Help topics">
+					<a href="#getting-started"><span class="icon">GS</span> Getting Started</a>
+					<a href="#account"><span class="icon">AC</span> Accounts & Login</a>
+					<a href="#privacy"><span class="icon">PR</span> Privacy & Safety</a>
+					<a href="#games"><span class="icon">GM</span> Games & Practice</a>
+					<a href="#contact"><span class="icon">CS</span> Contact Support</a>
+				</nav>
+			</div>
+
+			<div class="card">
+				<h4 style="margin-top:4px">Popular</h4>
+				<ul style="padding-left:18px;color:var(--muted)">
+					<li><a href="#how-to-play">How to play the games</a></li>
+					<li><a href="#reset-password">Reset your password</a></li>
+					<li><a href="#privacy-settings">Control privacy</a></li>
+				</ul>
+			</div>
+		</aside>
+
+		<section class="main">
+
+
+
+			<div class="grid">
+				<div class="card">
+					<h2 id="getting-started">Getting Started</h2>
+					<p style="color:var(--muted)">Quick-start answers and an overview to help new users get familiar
+						with the platform.</p>
+					<div>
+						<div class="topic">
+							<div style="flex:1">
+								<h3>What is this site?</h3>
+								<p>Learn what the ASL site offers, including games, practice tools, and memory cards to
+									help learn sign language.</p>
+							</div>
+						</div>
+						<div class="topic">
+							<div style="flex:1">
+								<h3>How to sign up</h3>
+								<p>Step-by-step guide to create an account or start using the site anonymously.</p>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="card">
+					<h2 id="account">Accounts & Login</h2>
+					<p style="color:var(--muted)">If you're having trouble signing in or managing your profile, start
+						here.</p>
+					<div>
+						<div class="topic">
+							<div style="flex:1">
+								<h3 id="reset-password">Resetting your password</h3>
+								<p>Instructions for resetting your password, and troubleshooting common login mistakes.
+								</p>
+							</div>
+						</div>
+						<div class="topic">
+							<div style="flex:1">
+								<h3>Linking accounts</h3>
+								<p>How to link multiple sign-in providers or email addresses to your profile.</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="card">
+				<h2 id="detailed-faq">Frequently Asked Questions</h2>
+				<div id="faq" class="">
+					<div class="faq-item">
+						<div class="faq-question" data-keywords="play games start playing" tabindex="0">
+							<span class="faq-q-text">How do I start a Practice?</span>
+							<span class="faq-toggle">+</span>
+						</div>
+						<div class="faq-answer">To start a Practice, go to the 'Practice' page, select a mode, and press
+							Play. You can choose difficulty to match your level.</div>
+					</div>
+
+					<div class="faq-item">
+						<div class="faq-question" data-keywords="offline content download memory" tabindex="0">
+							<span class="faq-q-text">Can I study offline?</span>
+							<span class="faq-toggle">+</span>
+						</div>
+						<div class="faq-answer">No. The site does not currently have a fully offline mode.</div>
+					</div>
+
+					<div class="faq-item">
+						<div class="faq-question" data-keywords="privacy data tracking" tabindex="0">
+							<span class="faq-q-text">How is my data used?</span>
+							<span class="faq-toggle">+</span>
+						</div>
+						<div class="faq-answer">We only use limited data for site performance. Visit the Privacy page
+							for full details and how to control your settings.</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="card" id="contact">
+				<h2>Contact Support</h2>
+				<p style="color:var(--muted)">If you need more help, send us a message and we'll get back to you as soon
+					as possible.</p>
+				<form id="contactForm">
+					<div style="display:flex;gap:8px;flex-direction:column">
+						<input type="text" placeholder="Your name" required
+							style="padding:10px;border-radius:6px;border:1px solid #e0e0e0" />
+						<input type="email" placeholder="Email address" required
+							style="padding:10px;border-radius:6px;border:1px solid #e0e0e0" />
+						<textarea placeholder="How can we help?" rows="4"
+							style="padding:10px;border-radius:6px;border:1px solid #e0e0e0"></textarea>
+						<div style="display:flex;justify-content:flex-end"><button class="btn">Send message</button>
+						</div>
+					</div>
+				</form>
+			</div>
+
+			<footer>
+				<small>&copy; ASL Help • <a href="privacy.html">Privacy</a> • <a href="terms.html">Terms</a></small>
+			</footer>
+		</section>
+	</main>
+
+	<script>
+		// Accordion functionality
+		document.querySelectorAll('.faq-question').forEach(function (q) {
+			q.addEventListener('click', function () {
+				const answer = q.nextElementSibling;
+				const toggle = q.querySelector('.faq-toggle');
+				if (answer.style.maxHeight) {
+					answer.style.maxHeight = null; toggle.textContent = '+';
+				} else {
+					// collapse others
+					document.querySelectorAll('.faq-answer').forEach(function (a) { a.style.maxHeight = null; });
+					document.querySelectorAll('.faq-toggle').forEach(function (t) { t.textContent = '+' });
+					answer.style.maxHeight = answer.scrollHeight + 'px'; toggle.textContent = '-';
+				}
 			});
-		</script>
-	</body>
-</html>
+			q.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') q.click(); });
+		});
 
+		// Search filtering
+		const search = document.getElementById('search');
+		const topSearch = document.getElementById('topSearch');
+		const clearBtn = document.getElementById('clearSearch');
+		function filterFAQs(query) {
+			const items = document.querySelectorAll('.faq-item');
+			items.forEach(function (it) {
+				const q = it.querySelector('.faq-question .faq-q-text').textContent.toLowerCase();
+				const keywords = it.querySelector('.faq-question').getAttribute('data-keywords') || '';
+				const match = q.includes(query) || keywords.includes(query);
+				it.style.display = match || query === '' ? '' : 'none';
+			});
+		}
+		search.addEventListener('input', function () { filterFAQs(this.value.trim().toLowerCase()); });
+		topSearch.addEventListener('input', function () { search.value = this.value; filterFAQs(this.value.trim().toLowerCase()); });
+		clearBtn.addEventListener('click', function () { search.value = ''; topSearch.value = ''; filterFAQs(''); search.focus(); });
+
+		// Set initial state for first FAQ open on wider screens
+		window.addEventListener('load', function () {
+			const first = document.querySelector('.faq-answer'); if (first) { first.style.maxHeight = first.scrollHeight + 'px'; document.querySelector('.faq-toggle').textContent = '-'; }
+		});
+	</script>
+</body>
+
+</html>
