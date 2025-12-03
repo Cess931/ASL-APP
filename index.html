@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ASL App Onboarding</title>
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background: transparent;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.phone-container {
+    width: 100%;
+    max-width: 420px;
+    height: 812px;
+    background: transparent;
+    border-radius: 40px;
+    overflow: hidden;
+    position: relative;
+    border: none;
+}
+
+.status-bar {
+    height: 44px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.skip-btn {
+    color: #1877f2;
+    background: none;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.onboarding-content {
+    display: flex;
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    height: calc(100% - 44px);
+}
+
+.slide {
+    min-width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 30px 30px;
+    justify-content: space-between;
+}
+
+.illustration {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.illustration svg {
+    width: 280px;
+    height: 280px;
+}
+
+.content-text {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.content-text h1 {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    color: #1c1e21;
+    line-height: 1.2;
+}
+
+.content-text p {
+    font-size: 16px;
+    color: #65676b;
+    line-height: 1.5;
+    max-width: 300px;
+    margin: 0 auto;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #e4e6eb;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+}
+
+.dot.active {
+    width: 16px;
+    border-radius: 8px;
+    background: #1877f2;
+}
+
+.next-btn, .start-btn {
+    width: 100%;
+    padding: 16px;
+    background: #1877f2;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 17px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.next-btn:hover, .start-btn:hover {
+    background: #166fe5;
+}
+
+.next-btn:active, .start-btn:active {
+    transform: scale(0.98);
+}
+
+@media (max-width: 768px) {
+    .phone-container {
+        max-width: 100%;
+        height: 100vh;
+        border-radius: 0;
+        border: none;
+    }
+}
+</style>
+</head>
+<body>
+<div class="phone-container">
+    <div class="status-bar">
+        <span></span>
+        <button class="skip-btn" onclick="skipOnboarding()">Skip</button>
+    </div>
+
+    <div class="onboarding-content" id="onboardingContent">
+        <!-- Slide 1 -->
+        <div class="slide">
+            <div class="illustration">
+                <svg viewBox="0 0 280 280" fill="none">
+                    <circle cx="140" cy="140" r="120" fill="#E7F3FF"/>
+                    <rect x="80" y="100" width="120" height="140" rx="8" fill="#1877F2"/>
+                    <circle cx="140" cy="140" r="30" fill="#fff"/>
+                    <path d="M135 145h10v25h-10z" fill="#1877F2"/>
+                    <circle cx="140" cy="140" r="8" fill="#1877F2"/>
+                    <rect x="100" y="80" width="80" height="12" rx="6" fill="#BDD7F5"/>
+                    <rect x="110" y="70" width="60" height="8" rx="4" fill="#BDD7F5"/>
+                </svg>
+            </div>
+            <div class="content-text">
+                <h1>Welcome to ASL App</h1>
+                <p>Where every hand movement creates connection.</p>
+            </div>
+            <div class="pagination">
+                <div class="dot active"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+            </div>
+            <button class="next-btn" onclick="nextSlide()">Next</button>
+        </div>
+
+        <!-- Slide 2 -->
+        <div class="slide">
+            <div class="illustration">
+                <svg viewBox="0 0 280 280" fill="none">
+                    <circle cx="140" cy="140" r="120" fill="#F0E6FF"/>
+                    <rect x="70" y="80" width="140" height="160" rx="12" fill="#fff" stroke="#E4E6EB" stroke-width="2"/>
+                    <rect x="90" y="100" width="100" height="8" rx="4" fill="#E4E6EB"/>
+                    <rect x="90" y="115" width="80" height="6" rx="3" fill="#E4E6EB"/>
+                    <rect x="90" y="126" width="60" height="6" rx="3" fill="#E4E6EB"/>
+                    <rect x="90" y="145" width="100" height="60" rx="8" fill="#1877F2"/>
+                    <circle cx="190" cy="95" r="15" fill="#42B72A"/>
+                    <path d="M185 95l4 4 8-8" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+            </div>
+            <div class="content-text">
+                <h1>Communication is for everyone</h1>
+                <p>Let your hands become your voice.</p>
+            </div>
+            <div class="pagination">
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+            </div>
+            <button class="next-btn" onclick="nextSlide()">Next</button>
+        </div>
+
+        <!-- Slide 3 -->
+        <div class="slide">
+            <div class="illustration">
+                <svg viewBox="0 0 280 280" fill="none">
+                    <circle cx="140" cy="140" r="120" fill="#E7F9F0"/>
+                    <circle cx="140" cy="120" r="50" fill="#1877F2"/>
+                    <circle cx="140" cy="115" r="18" fill="#fff"/>
+                    <path d="M140 135c-20 0-35 10-35 25v15h70v-15c0-15-15-25-35-25z" fill="#fff"/>
+                    <rect x="180" y="90" width="40" height="40" rx="20" fill="#42B72A"/>
+                    <path d="M195 110l5 5 10-10" stroke="#fff" stroke-width="3" stroke-linecap="round"/>
+                    <circle cx="195" cy="180" r="12" fill="#FF3B30"/>
+                    <path d="M195 175v6m0 3v1" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+            </div>
+            <div class="content-text">
+                <h1>Learn ASL and open a world</h1>
+                <p>Where communication has no barriers.</p>
+            </div>
+            <div class="pagination">
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+            </div>
+            <button class="start-btn" onclick="getStarted()">Get Started</button>
+        </div>
+    </div>
+</div>
+
+<script>
+let currentSlide = 0;
+const totalSlides = 3;
+const content = document.getElementById('onboardingContent');
+const slides = document.querySelectorAll('.slide');
+
+function updateSlide() {
+    content.style.transform = `translateX(-${currentSlide * 100}%)`;
+    slides.forEach((slide, index) => {
+        const dots = slide.querySelectorAll('.dot');
+        dots.forEach((dot, i) => {
+            dot.classList.toggle('active', i === currentSlide);
+        });
+    });
+}
+
+function nextSlide() {
+    if (currentSlide < totalSlides - 1) {
+        currentSlide++;
+        updateSlide();
+    }
+}
+
+function skipOnboarding() {
+    window.location.href = 'intro.html'; // direct navigation
+}
+
+function getStarted() {
+    window.location.href = 'intro.html'; // direct navigation
+}
+
+// Swipe functionality
+let touchStartX = 0;
+
+content.addEventListener('touchstart', e => {
+    touchStartX = e.touches[0].clientX;
+});
+
+content.addEventListener('touchend', e => {
+    const touchEndX = e.changedTouches[0].clientX;
+    const swipeDistance = touchStartX - touchEndX;
+
+    if (swipeDistance > 50 && currentSlide < totalSlides - 1) {
+        currentSlide++;
+        updateSlide();
+    }
+    if (swipeDistance < -50 && currentSlide > 0) {
+        currentSlide--;
+        updateSlide();
+    }
+});
+
+// Click dots to jump slides
+slides.forEach((slide, slideIndex) => {
+    const dots = slide.querySelectorAll('.dot');
+    dots.forEach((dot, dotIndex) => {
+        dot.addEventListener('click', () => {
+            currentSlide = dotIndex;
+            updateSlide();
+        });
+    });
+});
+</script>
+</body>
+</html>
