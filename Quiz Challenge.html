@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Quiz Challenge - ASL</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#F0F2F5;margin:0;min-height:100vh}
+    .header{background:#FFFFFF;color:#050505;padding:1rem 1.5rem;display:flex;justify-content:space-between;align-items:center;box-shadow:0 2px 4px rgba(0,0,0,0.1);border-bottom:1px solid #E4E6EB;position:sticky;top:0;z-index:100}
+    .header-title{font-size:1.25rem;font-weight:700;color:#050505;flex:1;text-align:center}
+    .header-link{color:#050505;text-decoration:none;border:none;background:none;cursor:pointer;padding:0.5rem;display:flex;align-items:center;justify-content:center;border-radius:50%;transition:background 0.2s ease}
+    .header-link:hover{background:#F0F2F5}
+    .header-link:active{background:#E4E6EB}
+    .back-btn{background:none;border:none;cursor:pointer;padding:0.5rem;display:flex;align-items:center;justify-content:center;color:#050505;text-decoration:none;border-radius:50%;transition:background 0.2s ease}
+    .back-btn:hover{background:#F0F2F5}
+    .back-btn:active{background:#E4E6EB}
+    .header-spacer{width:40px}
+    .container{max-width:900px;margin:18px auto;padding:12px}
+    .card{background:#fff;padding:18px;border-radius:8px;box-shadow:0 6px 18px rgba(16,24,40,0.06)}
+    .question{font-size:1.1rem;font-weight:700;margin-bottom:12px}
+    .options{display:flex;flex-direction:column;gap:8px}
+    button.opt{padding:10px;border-radius:8px;border:1px solid #ddd}
+    button.primary{background:#1877F2;color:#fff;border:0;padding:8px 12px;border-radius:8px}
+  </style>
+</head>
+<body>
+  <header class="header"><div class="header-spacer"></div><div class="header-title">Quiz Challenge</div><a href="practice.html" class="back-btn" aria-label="Back"><span class="material-symbols-outlined">arrow_back</span></a></header>
+  <main class="container">
+    <div class="card">
+      <div id="options"></div>
+      <div id="question" class="question"></div>
+      <div id="opts" class="options"></div>
+      <div style="display:flex;gap:8px;margin-top:12px"><button id="next" class="primary">Next</button><button id="start">Start</button></div>
+      <div id="score" style="margin-top:10px" class="small"></div>
+    </div>
+  </main>
+  <script>
+    function parseQuery(){const p=new URLSearchParams(window.location.search);return {difficulty: p.get('difficulty')||'medium', rounds:parseInt(p.get('rounds')||'5',10), hints: p.get('hints')==='1', sound: p.get('sound')==='1'}}
+    const opts = parseQuery();
+    document.getElementById('options').textContent = `Difficulty: ${opts.difficulty} · Rounds: ${opts.rounds} · Hints: ${opts.hints? 'On':'Off'} · Sound: ${opts.sound? 'On':'Off'}`;
+    const questions = [
+      {q:'What does 🤟 usually mean?', a:['Love','Thank you','Deaf','Please'], correct:2},
+      {q:'What is sign for Hello?', a:['Wave','Clap','Thumbs up','Point'], correct:0},
+      {q:'Which sign means Thank You?', a:['Touch chin then extend','Wave','Palm out','Pat chest'], correct:0}
+    ];
+    let idx=0, score=0;
+    function render(){
+      const Q = questions[idx % questions.length];
+      document.getElementById('question').textContent = Q.q;
+      const optsEl = document.getElementById('opts');
+      optsEl.innerHTML = '';
+      Q.a.forEach((o,i)=>{
+        const b = document.createElement('button');
+        b.className = 'opt';
+        b.textContent = o;
+        b.onclick = () => {
+          if(i === Q.correct){
+            score += 10;
+            document.getElementById('score').textContent = `Score: ${score}`;
+            if(opts.sound){ const s = new Audio(); s.src = 'data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEAESsAACJWAAACABAAZGF0YQcAAAAA'; s.play().catch(()=>{}); }
+          } else {
+            // wrong answer
+          }
+        };
+        optsEl.appendChild(b);
+      });
+    }
+    document.getElementById('start').addEventListener('click', ()=>{ idx=0; score=0; render(); });
+    document.getElementById('next').addEventListener('click', ()=>{ idx++; render(); });
+  </script>
+</body>
+</html>

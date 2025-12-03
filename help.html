@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>Help - User Manual</title>
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+		<link rel="stylesheet" href="styles/help.css" />
+	</head>
+	<body>
+		<header class="topbar">
+			<a href="intro.html" class="back-btn" aria-label="Back">
+				<span class="material-symbols-outlined">arrow_back</span>
+			</a>
+			<div class="topbar-title">Help</div>
+			<div class="topbar-spacer"></div>
+		</header>
+
+		<main class="container">
+			<aside class="sidebar">
+				<div class="card">
+					<nav aria-label="Help topics">
+						<a href="#getting-started"><span class="icon">GS</span> Getting Started</a>
+						<a href="#account"><span class="icon">AC</span> Accounts & Login</a>
+						<a href="#privacy"><span class="icon">PR</span> Privacy & Safety</a>
+						<a href="#games"><span class="icon">GM</span> Games & Practice</a>
+						<a href="#contact"><span class="icon">CS</span> Contact Support</a>
+					</nav>
+				</div>
+
+				<div class="card">
+					<h4 style="margin-top:4px">Popular</h4>
+					<ul style="padding-left:18px;color:var(--muted)">
+						<li><a href="#how-to-play">How to play the games</a></li>
+						<li><a href="#reset-password">Reset your password</a></li>
+						<li><a href="#privacy-settings">Control privacy</a></li>
+					</ul>
+				</div>
+			</aside>
+
+			<section class="main">
+				
+
+				
+				<div class="grid">
+					<div class="card">
+						<h2 id="getting-started">Getting Started</h2>
+						<p style="color:var(--muted)">Quick-start answers and an overview to help new users get familiar with the platform.</p>
+						<div>
+							<div class="topic">
+								<div style="flex:1">
+									<h3>What is this site?</h3>
+									<p>Learn what the ASL site offers, including games, practice tools, and memory cards to help learn sign language.</p>
+								</div>
+							</div>
+							<div class="topic">
+								<div style="flex:1">
+									<h3>How to sign up</h3>
+									<p>Step-by-step guide to create an account or start using the site anonymously.</p>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="card">
+						<h2 id="account">Accounts & Login</h2>
+						<p style="color:var(--muted)">If you're having trouble signing in or managing your profile, start here.</p>
+						<div>
+							<div class="topic">
+								<div style="flex:1">
+									<h3 id="reset-password">Resetting your password</h3>
+									<p>Instructions for resetting your password, and troubleshooting common login mistakes.</p>
+								</div>
+							</div>
+							<div class="topic">
+								<div style="flex:1">
+									<h3>Linking accounts</h3>
+									<p>How to link multiple sign-in providers or email addresses to your profile.</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="card">
+					<h2 id="detailed-faq">Frequently Asked Questions</h2>
+					<div id="faq" class="">
+						<div class="faq-item">
+							<div class="faq-question" data-keywords="play games start playing" tabindex="0">
+								<span class="faq-q-text">How do I start a Practice?</span>
+								<span class="faq-toggle">+</span>
+							</div>
+							<div class="faq-answer">To start a Practice, go to the 'Practice' page, select a mode, and press Play. You can choose difficulty to match your level.</div>
+						</div>
+
+						<div class="faq-item">
+							<div class="faq-question" data-keywords="offline content download memory" tabindex="0">
+								<span class="faq-q-text">Can I study offline?</span>
+								<span class="faq-toggle">+</span>
+							</div>
+							<div class="faq-answer">No. The site does not currently have a fully offline mode.</div>
+						</div>
+
+						<div class="faq-item">
+							<div class="faq-question" data-keywords="privacy data tracking" tabindex="0">
+								<span class="faq-q-text">How is my data used?</span>
+								<span class="faq-toggle">+</span>
+							</div>
+							<div class="faq-answer">We only use limited data for site performance. Visit the Privacy page for full details and how to control your settings.</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="card" id="contact">
+					<h2>Contact Support</h2>
+					<p style="color:var(--muted)">If you need more help, send us a message and we'll get back to you as soon as possible.</p>
+					<form id="contactForm">
+						<div style="display:flex;gap:8px;flex-direction:column">
+							<input type="text" placeholder="Your name" required style="padding:10px;border-radius:6px;border:1px solid #e0e0e0" />
+							<input type="email" placeholder="Email address" required style="padding:10px;border-radius:6px;border:1px solid #e0e0e0" />
+							<textarea placeholder="How can we help?" rows="4" style="padding:10px;border-radius:6px;border:1px solid #e0e0e0"></textarea>
+							<div style="display:flex;justify-content:flex-end"><button class="btn">Send message</button></div>
+						</div>
+					</form>
+				</div>
+
+				<footer>
+					<small>&copy; ASL Help • <a href="privacy.html">Privacy</a> • <a href="terms.html">Terms</a></small>
+				</footer>
+			</section>
+		</main>
+
+		<script>
+			// Accordion functionality
+			document.querySelectorAll('.faq-question').forEach(function(q){
+				q.addEventListener('click', function(){
+					const answer = q.nextElementSibling;
+					const toggle = q.querySelector('.faq-toggle');
+					if(answer.style.maxHeight){
+						answer.style.maxHeight = null; toggle.textContent = '+';
+					} else {
+						// collapse others
+						document.querySelectorAll('.faq-answer').forEach(function(a){a.style.maxHeight = null;});
+						document.querySelectorAll('.faq-toggle').forEach(function(t){t.textContent = '+'});
+						answer.style.maxHeight = answer.scrollHeight + 'px'; toggle.textContent = '-';
+					}
+				});
+				q.addEventListener('keydown', function(e){ if(e.key === 'Enter' || e.key === ' ') q.click(); });
+			});
+
+			// Search filtering
+			const search = document.getElementById('search');
+			const topSearch = document.getElementById('topSearch');
+			const clearBtn = document.getElementById('clearSearch');
+			function filterFAQs(query){
+				const items = document.querySelectorAll('.faq-item');
+				items.forEach(function(it){
+					const q = it.querySelector('.faq-question .faq-q-text').textContent.toLowerCase();
+					const keywords = it.querySelector('.faq-question').getAttribute('data-keywords') || '';
+					const match = q.includes(query) || keywords.includes(query);
+					it.style.display = match || query === '' ? '' : 'none';
+				});
+			}
+			search.addEventListener('input', function(){ filterFAQs(this.value.trim().toLowerCase()); });
+			topSearch.addEventListener('input', function(){ search.value = this.value; filterFAQs(this.value.trim().toLowerCase()); });
+			clearBtn.addEventListener('click', function(){ search.value = ''; topSearch.value = ''; filterFAQs(''); search.focus(); });
+
+			// Set initial state for first FAQ open on wider screens
+			window.addEventListener('load', function(){
+				const first = document.querySelector('.faq-answer'); if(first){ first.style.maxHeight = first.scrollHeight+'px'; document.querySelector('.faq-toggle').textContent = '-'; }
+			});
+		</script>
+	</body>
+</html>

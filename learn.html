@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn - ASL App</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/pose@0.8/dist/teachablemachine-pose.min.js"></script>
+</head>
+<body>
+    <header class="app-header">
+        <a href="intro.html" class="back-btn" aria-label="Back">
+            <span class="material-symbols-outlined">arrow_back</span>
+        </a>
+        <h1 class="app-title">Learning Materials</h1>
+        <div class="header-spacer"></div>
+    </header>
+
+    <main class="main-content">
+        <section class="category-section">
+            <h2 class="category-title">Greetings</h2>
+            <div class="phrases-grid">
+                <button class="phrase-btn" onclick="openPractice('Hello', 'https://teachablemachine.withgoogle.com/models/cXv5DG2fW/')">Hello</button>
+                <button class="phrase-btn" onclick="openPractice('Goodbye', 'https://teachablemachine.withgoogle.com/models/cXv5DG2fW/')">Goodbye</button>
+                <button class="phrase-btn" onclick="openPractice('Please', 'https://teachablemachine.withgoogle.com/models/cXv5DG2fW/')">Please</button>
+                <button class="phrase-btn" onclick="openPractice('Sorry', 'https://teachablemachine.withgoogle.com/models/cXv5DG2fW/')">Sorry</button>
+                <button class="phrase-btn" onclick="openPractice('Good morning', 'https://teachablemachine.withgoogle.com/models/cXv5DG2fW/')">Good morning</button>
+                <button class="phrase-btn" onclick="openPractice('Good night', 'https://teachablemachine.withgoogle.com/models/cXv5DG2fW/')">Good night</button>
+            </div>
+        </section>
+
+        <section class="category-section">
+            <h2 class="category-title">Basic Conversation</h2>
+            <div class="phrases-grid">
+                <button class="phrase-btn" onclick="openPractice('How are you?', 'https://teachablemachine.withgoogle.com/models/Q09Dpq1J0/')">How are you?</button>
+                <button class="phrase-btn" onclick="openPractice('Nice to meet you', 'https://teachablemachine.withgoogle.com/models/Q09Dpq1J0/')">Nice to meet you</button>
+                <button class="phrase-btn" onclick="openPractice('What\'s your name?', 'https://teachablemachine.withgoogle.com/models/Q09Dpq1J0/')">What's your name?</button>
+                <button class="phrase-btn" onclick="openPractice('My name is...', 'https://teachablemachine.withgoogle.com/models/Q09Dpq1J0/')">My name is...</button>
+            </div>
+        </section>
+
+        <section class="category-section">
+            <h2 class="category-title">Daily Expressions</h2>
+            <div class="phrases-grid">
+                <button class="phrase-btn" onclick="openPractice('Thank you', 'https://teachablemachine.withgoogle.com/models/RtmlxwsQG/')">Thank you</button>
+                <button class="phrase-btn" onclick="openPractice('Hungry', 'https://teachablemachine.withgoogle.com/models/RtmlxwsQG/')">Hungry</button>
+                <button class="phrase-btn" onclick="openPractice('Tired', 'https://teachablemachine.withgoogle.com/models/RtmlxwsQG/')">Tired</button>
+                <button class="phrase-btn" onclick="openPractice('Busy', 'https://teachablemachine.withgoogle.com/models/RtmlxwsQG/')">Busy</button>
+                <button class="phrase-btn" onclick="openPractice('Help', 'https://teachablemachine.withgoogle.com/models/RtmlxwsQG/')">Help</button>
+            </div>
+        </section>
+
+        <section class="category-section">
+            <h2 class="category-title">Identity & People</h2>
+            <div class="phrases-grid">
+                <button class="phrase-btn" onclick="openPractice('Deaf', 'https://teachablemachine.withgoogle.com/models/oEvSCgA1M/')">Deaf</button>
+                <button class="phrase-btn" onclick="openPractice('Hearing', 'https://teachablemachine.withgoogle.com/models/oEvSCgA1M/')">Hearing</button>
+                <button class="phrase-btn" onclick="openPractice('Hard of hearing', 'https://teachablemachine.withgoogle.com/models/oEvSCgA1M/')">Hard of hearing</button>
+            </div>
+        </section>
+
+        <section class="category-section">
+            <h2 class="category-title">Other/Feelings</h2>
+            <div class="phrases-grid">
+                <button class="phrase-btn" onclick="openPractice('Good', 'https://teachablemachine.withgoogle.com/models/OKt8ttgQR/')">Good</button>
+                <button class="phrase-btn" onclick="openPractice('Bad', 'https://teachablemachine.withgoogle.com/models/OKt8ttgQR/')">Bad</button>
+                <button class="phrase-btn" onclick="openPractice('Fine', 'https://teachablemachine.withgoogle.com/models/OKt8ttgQR/')">Fine</button>
+                <button class="phrase-btn" onclick="openPractice('Excuse me', 'https://teachablemachine.withgoogle.com/models/OKt8ttgQR/')">Excuse me</button>
+                <button class="phrase-btn" onclick="openPractice('See you later', 'https://teachablemachine.withgoogle.com/models/OKt8ttgQR/')">See you later</button>
+                <button class="phrase-btn" onclick="openPractice('See you tomorrow', 'https://teachablemachine.withgoogle.com/models/OKt8ttgQR/')">See you tomorrow</button>
+            </div>
+        </section>
+    </main>
+
+    <!-- Practice Modal -->
+    <div id="practiceModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="practiceTitle">Practice</h2>
+                <button class="close-btn" onclick="closePractice()">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="instructions-panel">
+                    <div class="instruction-left">
+                        <h3 class="instructions-title">Instructions</h3>
+                        <div id="instructionText" class="instruction-content">Loading instructions...</div>
+                    </div>
+                </div>
+                <div class="video-container">
+                    <canvas id="canvas"></canvas>
+                </div>
+                <div class="gif-panel" id="gifPanel" aria-label="Example GIFs">
+                    <!-- GIF thumbnails for the phrase will be injected here -->
+                </div>
+                <div id="feedback" class="feedback"></div>
+                <div class="predictions" id="predictions"></div>
+            </div>
+            <div class="modal-footer">
+                <button class="action-btn" onclick="startPractice()">Start Camera</button>
+                <button class="action-btn secondary" onclick="closePractice()">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #F0F2F5;
+            min-height: 100vh;
+            color: #050505;
+        }
+
+        .app-header {
+            background: #FFFFFF;
+            padding: 1rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-bottom: 1px solid #E4E6EB;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .back-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #050505;
+            text-decoration: none;
+            border-radius: 50%;
+            transition: background 0.2s ease;
+        }
+
+        .back-btn:hover {
+            background: #F0F2F5;
+        }
+
+        .back-btn:active {
+            background: #E4E6EB;
+        }
+
+        .app-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #050505;
+            flex: 1;
+            text-align: center;
+        }
+
+        .header-spacer {
+            width: 40px;
+        }
+
+        .menu-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            padding: 5px;
+            transition: transform 0.2s ease;
+        }
+
+        .menu-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .menu-btn:active {
+            transform: scale(0.95);
+            opacity: 0.7;
+        }
+
+        .menu-btn span {
+            width: 5px;
+            height: 5px;
+            background: #65676B;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .main-content {
+            padding: 0;
+            max-width: 480px;
+            margin: 0 auto;
+        }
+
+        .category-section {
+            background: #FFFFFF;
+            margin-bottom: 0.5rem;
+            padding: 1rem;
+        }
+
+        .category-title {
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: #050505;
+            margin-bottom: 0.75rem;
+            padding: 0.5rem 0;
+        }
+
+        .phrases-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.5rem;
+        }
+
+        .phrase-btn {
+            background: #D3D3D3;
+            border: 3px solid #6B6B6B;
+            border-radius: 4px;
+            padding: 1.25rem 1rem;
+            font-size: 1rem;
+            font-weight: 500;
+            color: #050505;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: center;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .phrase-btn:hover {
+            background: #C0C0C0;
+            transform: translateY(-1px);
+        }
+
+        .phrase-btn:active {
+            background: #B0B0B0;
+            transform: scale(0.98);
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            overflow: auto;
+        }
+
+        .modal-content {
+            background-color: #FFFFFF;
+            margin: 2% auto;
+            width: 95%;
+            max-width: 1200px;
+            height: 90vh;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            animation: slideDown 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-header {
+            background: #4267B2;
+            color: white;
+            padding: 1rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 8px 8px 0 0;
+        }
+
+        .modal-header h2 {
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+            line-height: 1;
+            padding: 0;
+            width: 32px;
+            height: 32px;
+        }
+
+        .modal-body {
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        .practice-layout {
+            display: flex;
+            gap: 1rem;
+            width: 100%;
+        }
+
+        .left-panel {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            overflow: hidden;
+        }
+
+        .instructions-panel {
+            width: 100%;
+            background: #F8F9FA;
+            border-radius: 8px;
+            padding: 1rem;
+            border: 1px solid #DEE2E6;
+            flex-shrink: 0;
+            max-height: none; /* Allow instructions to expand vertically */
+            display: flex;
+            flex-direction: column; /* Stack instructions above GIFs */
+            gap: 12px;
+            align-items: stretch;
+        }
+
+        .instruction-left { flex: 1; overflow-y:auto; max-height:120px; }
+
+        .gif-panel {
+            width: 100%; /* full width below the camera */
+            display: flex;
+            flex-direction: row; /* show GIFs in a row */
+            gap: 12px;
+            align-items: center;
+            justify-content: center; /* center GIFs horizontally */
+            flex-wrap: nowrap; /* single row scroll matching camera width */
+            overflow-x: auto; /* allow horizontal scroll for GIFs that match camera width */
+            padding-top: 8px;
+            padding-bottom: 8px;
+        }
+
+        .gif-panel img {
+            flex: 0 0 auto;
+            width: auto; /* set via JS to match canvas */
+            height: auto; /* set via JS to match canvas */
+            max-height: none;
+            max-width: none;
+            border-radius: 6px;
+            object-fit: cover;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.08);
+            background: white;
+        }
+
+        .instructions-title {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: #050505;
+            margin-bottom: 0.5rem;
+            text-align: left;
+        }
+
+        .instruction-content {
+            font-size: 0.9rem;
+            line-height: 1.5;
+            color: #333;
+        }
+
+        .video-container {
+            position: relative;
+            flex: 1;
+            background: #000;
+            border-radius: 8px;
+            overflow: hidden;
+            min-width: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #webcam {
+            display: none;
+        }
+
+        #canvas {
+            max-width: 100%;
+            max-height: 100%;
+            display: block;
+        }
+
+        .feedback {
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            padding: 1rem;
+            border-radius: 8px;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .feedback.correct {
+            background: #D4EDDA;
+            color: #155724;
+            border: 2px solid #28A745;
+        }
+
+        .feedback.wrong {
+            background: #F8D7DA;
+            color: #721C24;
+            border: 2px solid #DC3545;
+        }
+
+        .predictions {
+            background: #F8F9FA;
+            padding: 1rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            overflow-y: auto;
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .prediction-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #DEE2E6;
+        }
+
+        .prediction-item:last-child {
+            border-bottom: none;
+        }
+
+        .modal-footer {
+            padding: 1rem 1.5rem;
+            border-top: 1px solid #DEE2E6;
+            display: flex;
+            gap: 0.5rem;
+            justify-content: center;
+        }
+
+        .action-btn {
+            background: #4267B2;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        .action-btn:hover {
+            background: #365899;
+        }
+
+        .action-btn.secondary {
+            background: #6C757D;
+        }
+
+        .action-btn.secondary:hover {
+            background: #5A6268;
+        }
+
+        @media (max-width: 480px) {
+            .modal-content {
+                width: 98%;
+                margin: 1% auto;
+                height: auto;
+            }
+
+            .modal-header h2 {
+                font-size: 1.1rem;
+            }
+
+            .modal-body {
+                padding: 1rem;
+                flex-direction: column;
+                overflow: auto;
+            }
+
+            .practice-layout {
+                flex-direction: column;
+            }
+
+            .instructions-panel {
+                width: 100%;
+                max-height: 120px;
+            }
+
+            .feedback {
+                font-size: 1.25rem;
+                padding: 0.75rem;
+            }
+
+            .action-btn {
+                padding: 0.625rem 1.25rem;
+                font-size: 0.95rem;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .phrases-grid {
+                gap: 0.625rem;
+            }
+
+            .phrase-btn {
+                padding: 0.875rem 0.625rem;
+                font-size: 0.9rem;
+                min-height: 50px;
+            }
+        }
+        @media (max-width: 480px) {
+            .instructions-panel { flex-direction: column; gap: 8px; }
+            .gif-panel { width: 100%; flex-direction: row; overflow-x: auto; gap: 8px; justify-content: center; }
+            .gif-panel img { max-height: 160px; height: 160px; width: auto; }
+        }
+    </style>
+
+    <script>
+        let model, webcam, ctx, isRunning = false;
+        let currentPhrase = '';
+        let currentModelURL = '';
+        let maxPredictions = 0;
+        const synth = window.speechSynthesis;
+
+        const instructions = {
+            "Hello": "Raise your dominant hand near your forehead and move it outward in a wave motion.",
+            "Goodbye": "Open hand waving from the wrist near shoulder height.",
+            "Please": "Open hand placed on your chest in a circular motion.",
+            "Sorry": "Make a fist and rub it in a circular motion on your chest.",
+            "Good morning": "Sign GOOD then move your arm upward like the sunrise.",
+            "Good night": "Sign GOOD then fold your hand down like going to sleep.",
+            "How are you?": "Form your hands into curved shapes and rotate them inward, then point.",
+            "Nice to meet you": "Slide one hand over the other, then make two index fingers meet.",
+            "What's your name?": "Tap both hands as letter H twice, then point.",
+            "My name is...": "Place flat hand to your chest then sign NAME handshape.",
+            "Thank you": "Open hand from chin moving outward.",
+            "Hungry": "Make a C shape and move it down your chest.",
+            "Tired": "Place hands on chest and drop elbows downward.",
+            "Busy": "Move your dominant hand quickly across your supporting arm.",
+            "Help": "Make a thumbs-up on your palm and lift upward.",
+            "Deaf": "Point from ear to mouth.",
+            "Hearing": "Point to your lips and make a small circular motion.",
+            "Hard of hearing": "Make an H handshape and move side to side.",
+            "Good": "Flat hand from chin moving outward and downward.",
+            "Bad": "Flat hand from chin moving downward flipping palm.",
+            "Fine": "Thumb touches chest, fingers spread.",
+            "Excuse me": "Slide fingertips across opposite palm.",
+            "See you later": "V-hand from eyes then L-hand gesture.",
+            "See you tomorrow": "V-hand from eyes then thumb-up moving forward."
+        };
+
+        // Mapping of phrases to example GIFs (relative path to GIF folder)
+        const gifMapping = {
+            'Hello': ['hello.gif'],
+            'Goodbye': ['goodbye.gif'],
+            'Please': ['please.gif'],
+            'Sorry': ['sorry.gif'],
+            'Good morning': ['good_morning.gif'],
+            'Good night': ['good_night.gif'],
+            'How are you?': ['how_are_you.gif'],
+            'Nice to meet you': ['nice_to_meet_you.gif'],
+            "What's your name?": ['whats_your_name.gif'],
+            'My name is...': ['my_name_is.gif'],
+            'Thank you': ['thank_you.gif'],
+            'Hungry': ['hungry.gif'],
+            'Tired': ['tired.gif'],
+            'Busy': ['busy.gif'],
+            'Help': ['help.gif'],
+            'Deaf': ['deaf.gif'],
+            'Hearing': ['hearing.gif'],
+            'Hard of hearing': ['hard_of_hearing.gif'],
+            'Good': ['good.gif'],
+            'Bad': ['bad.gif'],
+            'Fine': ['fine.gif'],
+            'Excuse me': ['excuse_me.gif'],
+            'See you later': ['see_you_later.gif'],
+            'See you tomorrow': ['see_you_tomorrow.gif']
+        };
+
+        function populateGifPanel(phrase) {
+            const panel = document.getElementById('gifPanel');
+            panel.innerHTML = '';
+            const gifs = gifMapping[phrase] || [];
+            if (gifs.length === 0) return;
+            gifs.slice(0, 3).forEach(src => {
+                const img = document.createElement('img');
+                img.src = src;
+                img.alt = src.split('/').pop().replace('.gif', '').replace(/_/g,' ');
+                panel.appendChild(img);
+            });
+            // Try to size the GIFs to match the canvas (camera) if present
+            updateGifSizes();
+        }
+
+        function updateGifSizes() {
+            const canvasEl = document.getElementById('canvas');
+            const panel = document.getElementById('gifPanel');
+            if (!panel) return;
+            const imgs = panel.querySelectorAll('img');
+            let w = 400, h = 400; // fallback
+            if (canvasEl && canvasEl.clientWidth && canvasEl.clientHeight) {
+                w = canvasEl.clientWidth;
+                h = canvasEl.clientHeight;
+            } else if (canvasEl && canvasEl.width && canvasEl.height) {
+                w = canvasEl.width;
+                h = canvasEl.height;
+            }
+            imgs.forEach((img) => {
+                img.style.width = w + 'px';
+                img.style.height = h + 'px';
+            });
+        }
+
+        function speak(text) {
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.rate = 0.9;
+            utterance.pitch = 1;
+            synth.speak(utterance);
+        }
+
+        function stopAllSpeech() {
+            synth.cancel();
+        }
+
+        function openPractice(phrase, modelURL) {
+            currentPhrase = phrase;
+            currentModelURL = modelURL;
+            document.getElementById('practiceTitle').textContent = `Practice: ${phrase}`;
+            document.getElementById('practiceModal').style.display = 'block';
+            document.getElementById('feedback').textContent = '';
+            document.getElementById('feedback').className = 'feedback';
+            
+            // SET INSTRUCTIONS
+            document.getElementById('instructionText').textContent = instructions[phrase] || "No instructions found.";
+            // Populate GIFs for the given phrase
+            populateGifPanel(phrase);
+        }
+
+        function closePractice() {
+            if (isRunning && webcam) {
+                webcam.stop();
+                isRunning = false;
+            }
+            stopAllSpeech();
+            // Refresh the page when closing
+            window.location.reload();
+        }
+
+        async function startPractice() {
+            const modelURL = currentModelURL + 'model.json';
+            const metadataURL = currentModelURL + 'metadata.json';
+
+            try {
+                // Load the pose model
+                model = await tmPose.load(modelURL, metadataURL);
+                maxPredictions = model.getTotalClasses();
+
+                // Setup webcam
+                const size = 400;
+                const flip = true;
+                webcam = new tmPose.Webcam(size, size, flip);
+                await webcam.setup();
+                await webcam.play();
+                isRunning = true;
+
+                // Setup canvas
+                const canvas = document.getElementById('canvas');
+                canvas.width = size;
+                canvas.height = size;
+                ctx = canvas.getContext('2d');
+                // Resize GIF thumbnails to match new canvas size
+                updateGifSizes();
+
+                window.requestAnimationFrame(loop);
+            } catch (error) {
+                console.error('Error loading model:', error);
+                alert('Error starting camera. Please allow camera access and try again.');
+            }
+        }
+
+        async function loop() {
+            if (isRunning) {
+                webcam.update();
+                await predict();
+                window.requestAnimationFrame(loop);
+            }
+        }
+
+        async function predict() {
+            // Estimate pose
+            const { pose, posenetOutput } = await model.estimatePose(webcam.canvas);
+            // Run prediction
+            const prediction = await model.predict(posenetOutput);
+
+            let predictionsHTML = '';
+            let maxPrediction = { className: '', probability: 0 };
+
+            for (let i = 0; i < maxPredictions; i++) {
+                const probability = (prediction[i].probability * 100).toFixed(1);
+                predictionsHTML += `
+                    <div class="prediction-item">
+                        <span>${prediction[i].className}</span>
+                        <span>${probability}%</span>
+                    </div>
+                `;
+
+                if (prediction[i].probability > maxPrediction.probability) {
+                    maxPrediction = prediction[i];
+                }
+            }
+
+            document.getElementById('predictions').innerHTML = predictionsHTML;
+
+            // Draw pose
+            drawPose(pose);
+
+            // Check if correct - ONLY speak "Correct!"
+            const threshold = 0.7;
+            if (maxPrediction.probability > threshold) {
+                const detectedPhrase = maxPrediction.className.toLowerCase().trim();
+                const targetPhrase = currentPhrase.toLowerCase().trim();
+
+                if (detectedPhrase === targetPhrase) {
+                    document.getElementById('feedback').textContent = '✓ Correct!';
+                    document.getElementById('feedback').className = 'feedback correct';
+                    speak('Correct!');
+                } else {
+                    document.getElementById('feedback').textContent = '✗ Try Again';
+                    document.getElementById('feedback').className = 'feedback wrong';
+                    // NO voice feedback for "Try Again" - removed speak('Try again');
+                }
+            }
+        }
+
+        function drawPose(pose) {
+            if (webcam.canvas) {
+                ctx.drawImage(webcam.canvas, 0, 0);
+                // Draw keypoints and skeleton
+                if (pose) {
+                    const minPartConfidence = 0.5;
+                    tmPose.drawKeypoints(pose.keypoints, minPartConfidence, ctx);
+                    tmPose.drawSkeleton(pose.keypoints, minPartConfidence, ctx);
+                }
+            }
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById('practiceModal');
+            if (event.target === modal) {
+                closePractice();
+            }
+        }
+    </script>
+</body>
+</html>

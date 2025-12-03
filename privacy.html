@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - Basic ASL App</title>
+</head>
+
+<body>
+    <header class="app-header">
+        <a href="about.html" class="back-btn" aria-label="Back">
+            <span class="material-symbols-outlined">arrow_back</span>
+        </a>
+        <h1 class="app-title">Privacy Policy</h1>
+        <div class="header-spacer"></div>
+    </header>
+
+    <main class="main-content">
+        <section class="intro-card">
+            <div class="icon-header">
+                <span class="material-symbols-outlined">shield</span>
+                <div>
+                    <h2>Your Privacy Matters</h2>
+                    <p class="last-updated">Last Updated: December 1, 2025</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-card">
+            <h3>Introduction</h3>
+            <p>Welcome to Basic ASL App. We respect your privacy and are committed to protecting your personal data. This privacy policy will inform you about how we handle your personal information when you use our app.</p>
+        </section>
+
+        <section class="content-card">
+            <h3>Information We Collect</h3>
+            <p>We may collect and process the following data about you:</p>
+            <ul>
+                <li><strong>Account Information:</strong> Name, email address, and profile details you provide when creating an account</li>
+                <li><strong>Usage Data:</strong> Information about how you use our app, including lessons completed and practice sessions</li>
+                <li><strong>Device Information:</strong> Device type, operating system, and app version</li>
+                <li><strong>Analytics Data:</strong> App performance and user interaction data to improve our services</li>
+            </ul>
+        </section>
+
+        <section class="content-card">
+            <h3>How We Use Your Information</h3>
+            <p>We use your information to:</p>
+            <ul>
+                <li>Provide and maintain our ASL learning services</li>
+                <li>Track your learning progress and customize your experience</li>
+                <li>Send you important updates about the app</li>
+                <li>Improve our app features and user experience</li>
+                <li>Respond to your support requests and questions</li>
+            </ul>
+        </section>
+
+        <section class="content-card">
+            <h3>Data Security</h3>
+            <p>We implement appropriate security measures to protect your personal information. However, no method of transmission over the internet is 100% secure, and we cannot guarantee absolute security.</p>
+        </section>
+
+        <section class="content-card">
+            <h3>Your Rights</h3>
+            <p>You have the right to:</p>
+            <ul>
+                <li>Access your personal data</li>
+                <li>Correct inaccurate data</li>
+                <li>Request deletion of your data</li>
+                <li>Object to data processing</li>
+                <li>Export your data</li>
+            </ul>
+        </section>
+
+        <section class="content-card">
+            <h3>Contact Us</h3>
+            <p>If you have any questions about this Privacy Policy, please contact us at:</p>
+            <a href="mailto:privacy@basicasl.com" class="contact-link">
+                <span class="material-symbols-outlined">mail</span>
+                privacy@basicasl.com
+            </a>
+        </section>
+    </main>
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #F0F2F5;
+            min-height: 100vh;
+            color: #050505;
+        }
+
+        .material-symbols-outlined {
+            font-size: 24px;
+            font-weight: 300;
+        }
+
+        .app-header {
+            background: #FFFFFF;
+            padding: 1rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-bottom: 1px solid #E4E6EB;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .back-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #050505;
+            text-decoration: none;
+            border-radius: 50%;
+            transition: background 0.2s ease;
+        }
+
+        .back-btn:hover {
+            background: #F0F2F5;
+        }
+
+        .back-btn:active {
+            background: #E4E6EB;
+        }
+
+        .app-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #050505;
+            flex: 1;
+            text-align: center;
+        }
+
+        .header-spacer {
+            width: 40px;
+        }
+
+        .main-content {
+            padding: 1.5rem 1rem;
+            max-width: 680px;
+            margin: 0 auto;
+            padding-bottom: 3rem;
+        }
+
+        .intro-card {
+            background: #FFFFFF;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .icon-header {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .icon-header .material-symbols-outlined {
+            font-size: 3rem;
+            color: #1877F2;
+        }
+
+        .icon-header h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #050505;
+            margin-bottom: 0.25rem;
+        }
+
+        .last-updated {
+            font-size: 0.9rem;
+            color: #65676B;
+        }
+
+        .content-card {
+            background: #FFFFFF;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 0.75rem;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+            animation: fadeInUp 0.6s ease-out;
+            animation-fill-mode: both;
+        }
+
+        .content-card:nth-child(2) {
+            animation-delay: 0.1s;
+        }
+
+        .content-card:nth-child(3) {
+            animation-delay: 0.2s;
+        }
+
+        .content-card:nth-child(4) {
+            animation-delay: 0.3s;
+        }
+
+        .content-card:nth-child(5) {
+            animation-delay: 0.4s;
+        }
+
+        .content-card:nth-child(6) {
+            animation-delay: 0.5s;
+        }
+
+        .content-card:nth-child(7) {
+            animation-delay: 0.6s;
+        }
+
+        .content-card h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #050505;
+            margin-bottom: 1rem;
+        }
+
+        .content-card p {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #050505;
+            margin-bottom: 0.75rem;
+        }
+
+        .content-card p:last-child {
+            margin-bottom: 0;
+        }
+
+        .content-card ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .content-card li {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #050505;
+            margin-bottom: 0.75rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .content-card li::before {
+            content: "•";
+            color: #1877F2;
+            font-weight: bold;
+            font-size: 1.25rem;
+            position: absolute;
+            left: 0.5rem;
+        }
+
+        .content-card li:last-child {
+            margin-bottom: 0;
+        }
+
+        .contact-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1rem;
+            background: #F0F2F5;
+            border-radius: 6px;
+            text-decoration: none;
+            color: #1877F2;
+            font-weight: 500;
+            margin-top: 0.75rem;
+            transition: background 0.2s ease;
+        }
+
+        .contact-link:hover {
+            background: #E4E6EB;
+        }
+
+        .contact-link:active {
+            background: #D8DADF;
+        }
+
+        @media (max-width: 480px) {
+            .app-header {
+                padding: 0.875rem 1rem;
+            }
+
+            .app-title {
+                font-size: 1.1rem;
+            }
+
+            .main-content {
+                padding: 1rem 0.875rem;
+            }
+
+            .intro-card,
+            .content-card {
+                padding: 1.25rem;
+            }
+
+            .icon-header {
+                gap: 0.875rem;
+            }
+
+            .icon-header .material-symbols-outlined {
+                font-size: 2.5rem;
+            }
+
+            .icon-header h2 {
+                font-size: 1.35rem;
+            }
+
+            .last-updated {
+                font-size: 0.85rem;
+            }
+
+            .content-card h3 {
+                font-size: 1.15rem;
+            }
+
+            .content-card p,
+            .content-card li {
+                font-size: 0.95rem;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .app-title {
+                font-size: 1rem;
+            }
+
+            .main-content {
+                padding: 0.875rem 0.75rem;
+            }
+
+            .intro-card,
+            .content-card {
+                padding: 1.125rem;
+            }
+
+            .icon-header h2 {
+                font-size: 1.25rem;
+            }
+
+            .content-card h3 {
+                font-size: 1.1rem;
+            }
+        }
+
+        @media (min-width: 769px) {
+            .main-content {
+                max-width: 800px;
+                padding: 2rem 1.5rem;
+            }
+
+            .intro-card,
+            .content-card {
+                padding: 2rem;
+                border-radius: 12px;
+                margin-bottom: 1rem;
+            }
+
+            .icon-header .material-symbols-outlined {
+                font-size: 3.5rem;
+            }
+
+            .icon-header h2 {
+                font-size: 1.75rem;
+            }
+
+            .last-updated {
+                font-size: 1rem;
+            }
+
+            .content-card h3 {
+                font-size: 1.4rem;
+                margin-bottom: 1.25rem;
+            }
+
+            .content-card p,
+            .content-card li {
+                font-size: 1.05rem;
+            }
+        }
+    </style>
+</body>
+
+</html>

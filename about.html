@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - Basic ASL App</title>
+</head>
+
+<body>
+    <header class="app-header">
+        <a href="intro.html" class="back-btn" aria-label="Back">
+            <span class="material-symbols-outlined">arrow_back</span>
+        </a>
+        <h1 class="app-title">About</h1>
+        <div class="header-spacer"></div>
+    </header>
+
+    <main class="main-content">
+        
+
+        <section class="info-card">
+            <h3 class="section-title">Our Mission</h3>
+            <p class="section-text">
+                We are dedicated to making American Sign Language accessible to everyone. Our app provides an easy,
+                interactive way to learn ASL at your own pace, helping bridge communication gaps and foster inclusivity.
+            </p>
+        </section>
+
+        <section class="info-card">
+            <h3 class="section-title">What We Offer</h3>
+            <div class="feature-list">
+                <div class="feature-item">
+                    <span class="material-symbols-outlined">menu_book</span>
+                    <div>
+                        <h4>Learn</h4>
+                        <p>Comprehensive lessons covering ASL basics to advanced topics</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <span class="material-symbols-outlined">edit_note</span>
+                    <div>
+                        <h4>Practice</h4>
+                        <p>Interactive exercises to reinforce your learning</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <span class="material-symbols-outlined">chat_bubble</span>
+                    <div>
+                        <h4>Help</h4>
+                        <p>Support and resources whenever you need assistance</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="info-card">
+            <h3 class="section-title">Contact Us</h3>
+            <div class="contact-list">
+                <a href="mailto:support@basicasl.com" class="contact-item">
+                    <span class="material-symbols-outlined">mail</span>
+                    <span>support@basicasl.com</span>
+                </a>
+                <a href="#" class="contact-item">
+                    <span class="material-symbols-outlined">public</span>
+                    <span>www.basicasl.com</span>
+                </a>
+            </div>
+        </section>
+
+        <section class="info-card">
+            <h3 class="section-title">Legal</h3>
+            <div class="legal-links">
+                <a href="privacy.html" class="legal-link">Privacy Policy</a>
+                <a href="terms.html" class="legal-link">Terms of Service</a>
+                <a href="accessibility.html" class="legal-link">Accessibility Statement</a>
+            </div>
+        </section>
+
+        <section class="footer-section">
+            <p class="copyright">© 2025 Basic ASL App. All rights reserved.</p>
+            <p class="tagline">Learning together, signing together.</p>
+        </section>
+    </main>
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #F0F2F5;
+            min-height: 100vh;
+            color: #050505;
+        }
+
+        .material-symbols-outlined {
+            font-size: 24px;
+            font-weight: 300;
+        }
+
+        .app-header {
+            background: #FFFFFF;
+            padding: 1rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-bottom: 1px solid #E4E6EB;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .back-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #050505;
+            text-decoration: none;
+            border-radius: 50%;
+            transition: background 0.2s ease;
+        }
+
+        .back-btn:hover {
+            background: #F0F2F5;
+        }
+
+        .back-btn:active {
+            background: #E4E6EB;
+        }
+
+        .app-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #050505;
+            flex: 1;
+            text-align: center;
+        }
+
+        .header-spacer {
+            width: 40px;
+        }
+
+        .main-content {
+            padding: 1.5rem 1rem;
+            max-width: 480px;
+            margin: 0 auto;
+            padding-bottom: 3rem;
+        }
+
+        .about-hero {
+            background: linear-gradient(135deg, #1877F2 0%, #0D5DBF 100%);
+            border-radius: 12px;
+            padding: 2.5rem 1.5rem;
+            text-align: center;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 8px rgba(24, 119, 242, 0.2);
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-icon {
+            font-size: 4rem;
+            color: #FFFFFF;
+            margin-bottom: 1rem;
+        }
+
+        .about-hero h2 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #FFFFFF;
+            margin-bottom: 0.5rem;
+        }
+
+        .version {
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 0.95rem;
+        }
+
+        .info-card {
+            background: #FFFFFF;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 0.75rem;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+            animation: fadeInUp 0.6s ease-out;
+            animation-fill-mode: both;
+        }
+
+        .info-card:nth-child(2) {
+            animation-delay: 0.1s;
+        }
+
+        .info-card:nth-child(3) {
+            animation-delay: 0.2s;
+        }
+
+        .info-card:nth-child(4) {
+            animation-delay: 0.3s;
+        }
+
+        .info-card:nth-child(5) {
+            animation-delay: 0.4s;
+        }
+
+        .section-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #050505;
+            margin-bottom: 1rem;
+        }
+
+        .section-text {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #65676B;
+        }
+
+        .feature-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+
+        .feature-item {
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+        }
+
+        .feature-item .material-symbols-outlined {
+            font-size: 2rem;
+            color: #1877F2;
+            flex-shrink: 0;
+        }
+
+        .feature-item h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #050505;
+            margin-bottom: 0.25rem;
+        }
+
+        .feature-item p {
+            font-size: 0.95rem;
+            color: #65676B;
+            line-height: 1.5;
+        }
+
+        .contact-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem;
+            border-radius: 6px;
+            text-decoration: none;
+            color: #050505;
+            transition: background 0.2s ease;
+        }
+
+        .contact-item:hover {
+            background: #F0F2F5;
+        }
+
+        .contact-item:active {
+            background: #E4E6EB;
+        }
+
+        .contact-item .material-symbols-outlined {
+            color: #1877F2;
+        }
+
+        .legal-links {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .legal-link {
+            padding: 0.75rem;
+            color: #1877F2;
+            text-decoration: none;
+            font-size: 1rem;
+            border-radius: 6px;
+            transition: background 0.2s ease;
+        }
+
+        .legal-link:hover {
+            background: #F0F2F5;
+        }
+
+        .legal-link:active {
+            background: #E4E6EB;
+        }
+
+        .footer-section {
+            text-align: center;
+            padding: 2rem 1rem 1rem;
+            animation: fadeInUp 0.6s ease-out 0.5s;
+            animation-fill-mode: both;
+        }
+
+        .copyright {
+            font-size: 0.9rem;
+            color: #65676B;
+            margin-bottom: 0.5rem;
+        }
+
+        .tagline {
+            font-size: 0.95rem;
+            color: #1877F2;
+            font-weight: 500;
+            font-style: italic;
+        }
+
+        @media (max-width: 480px) {
+            .app-header {
+                padding: 0.875rem 1rem;
+            }
+
+            .app-title {
+                font-size: 1.1rem;
+            }
+
+            .main-content {
+                padding: 1rem 0.875rem;
+            }
+
+            .about-hero {
+                padding: 2rem 1.25rem;
+            }
+
+            .hero-icon {
+                font-size: 3.5rem;
+            }
+
+            .about-hero h2 {
+                font-size: 1.5rem;
+            }
+
+            .info-card {
+                padding: 1.25rem;
+            }
+
+            .section-title {
+                font-size: 1.15rem;
+            }
+
+            .feature-item h4 {
+                font-size: 1rem;
+            }
+
+            .feature-item p {
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .app-title {
+                font-size: 1rem;
+            }
+
+            .main-content {
+                padding: 0.875rem 0.75rem;
+            }
+
+            .about-hero {
+                padding: 1.75rem 1rem;
+            }
+
+            .hero-icon {
+                font-size: 3rem;
+            }
+
+            .about-hero h2 {
+                font-size: 1.35rem;
+            }
+
+            .version {
+                font-size: 0.875rem;
+            }
+
+            .info-card {
+                padding: 1.125rem;
+            }
+
+            .section-title {
+                font-size: 1.1rem;
+            }
+
+            .section-text {
+                font-size: 0.95rem;
+            }
+        }
+
+        @media (min-width: 769px) {
+            .main-content {
+                max-width: 600px;
+                padding: 2rem 1.5rem;
+            }
+
+            .about-hero {
+                padding: 3rem 2rem;
+                border-radius: 16px;
+            }
+
+            .hero-icon {
+                font-size: 5rem;
+            }
+
+            .about-hero h2 {
+                font-size: 2rem;
+            }
+
+            .version {
+                font-size: 1.05rem;
+            }
+
+            .info-card {
+                padding: 2rem;
+                border-radius: 12px;
+                margin-bottom: 1rem;
+            }
+
+            .section-title {
+                font-size: 1.4rem;
+                margin-bottom: 1.25rem;
+            }
+
+            .section-text {
+                font-size: 1.05rem;
+            }
+
+            .feature-list {
+                gap: 1.5rem;
+            }
+
+            .feature-item .material-symbols-outlined {
+                font-size: 2.25rem;
+            }
+
+            .feature-item h4 {
+                font-size: 1.15rem;
+            }
+
+            .feature-item p {
+                font-size: 1rem;
+            }
+
+            .legal-link {
+                font-size: 1.05rem;
+            }
+        }
+    </style>
+</body>
+
+</html>

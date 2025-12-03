@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Practice - ASL Games</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+    <style>
+        /* Reset */
+        *{box-sizing:border-box;margin:0;padding:0}
+        body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Ubuntu,Cantarell,'Helvetica Neue',sans-serif;background:#F0F2F5;color:#050505}
+
+        /* Header (Facebook-style) */
+        .app-header{display:flex;align-items:center;justify-content:space-between;padding:1rem 1.5rem;background:#FFFFFF;color:#050505;box-shadow:0 2px 4px rgba(0,0,0,0.1);border-bottom:1px solid #E4E6EB;position:sticky;top:0;z-index:100}
+        .app-title{font-size:1.25rem;font-weight:700;color:#050505;flex:1;text-align:center}
+        .back-btn{background:none;border:none;cursor:pointer;padding:0.5rem;display:flex;align-items:center;justify-content:center;color:#050505;text-decoration:none;border-radius:50%;transition:background 0.2s ease}
+        .back-btn:hover{background:#F0F2F5}
+        .back-btn:active{background:#E4E6EB}
+        .back-btn .material-symbols-outlined{font-size:24px}
+        .header-spacer{width:40px}
+        /* Search input removed from header per request */
+
+        /* Main layout */
+        .container{max-width:1024px;margin:18px auto;padding:0 16px}
+        .actions-row{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:12px}
+
+        /* Grid of cards */
+        .games-grid{display:grid;grid-template-columns:repeat(1,1fr);gap:12px}
+        @media(min-width:640px){.games-grid{grid-template-columns:repeat(2,1fr)}}
+        @media(min-width:1000px){.games-grid{grid-template-columns:repeat(3,1fr)}}
+
+        /* Card */
+        .game-card{background:#FFFFFF;border-radius:8px;box-shadow:0 1px 2px rgba(0,0,0,0.12);overflow:hidden;display:flex;flex-direction:column}
+        .card-top{display:flex;align-items:center;padding:12px 16px;border-bottom:1px solid #E9EDF2;gap:12px}
+        .game-avatar{width:48px;height:48px;border-radius:50%;background:#E4E6EB;display:flex;align-items:center;justify-content:center;color:#1877F2;font-weight:700}
+        .game-title{font-size:1rem;font-weight:700}
+        .game-meta{font-size:0.875rem;color:#65676B}
+
+        .card-body{padding:12px 16px;display:flex;flex-direction:column;gap:12px}
+        .desc{font-size:0.95rem;color:#333}
+
+        /* Options form */
+        .options{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+        .field{display:flex;flex-direction:column;gap:6px}
+        label{font-size:0.85rem;color:#65676B}
+        select,input[type=number]{padding:8px;border-radius:6px;border:1px solid #E4E6EB;background:#fff}
+        /* toggles removed - UI uses defaults on card dataset */
+
+        /* Footer: actions */
+        .card-footer{padding:12px 16px;border-top:1px solid #E9EDF2;display:flex;align-items:center;justify-content:space-between;gap:8px}
+        .play-btn{background:#1877F2;color:#FFF;padding:8px 14px;border-radius:999px;border:none;cursor:pointer;font-weight:600}
+        .secondary-btn{background:#FFFFFF;color:#1877F2;border:1px solid #E4E6EB;padding:8px 12px;border-radius:999px;cursor:pointer}
+
+        /* Small helper layout */
+        .small{text-transform:uppercase;font-size:0.75rem;color:#65676B}
+        .badge{font-size:0.8rem;background:#F0F2F5;padding:6px 8px;border-radius:6px}
+        .badge.play-top{background:#1877F2;color:#FFF;border:none;padding:6px 10px;cursor:pointer;font-weight:600;border-radius:6px}
+
+        /* Hover/focus states */
+        .game-card:focus-within, .game-card:hover{transform:translateY(-3px);box-shadow:0 6px 18px rgba(16,24,40,0.08)}
+        .game-card{transition:all .15s ease}
+
+        /* Footer notice */
+        .no-games{padding:24px;text-align:center;background:#fff;border-radius:8px;box-shadow:0 1px 2px rgba(0,0,0,0.05)}
+    </style>
+</head>
+
+<body>
+    <header class="app-header">
+        <a href="intro.html" class="back-btn" aria-label="Back">
+            <span class="material-symbols-outlined">arrow_back</span>
+        </a>
+        <h1 class="app-title">Let's Practice</h1>
+        <div class="header-spacer"></div>
+    </header>
+
+    <main class="container">
+        <div class="actions-row">
+            <div class="small">Choose a game</div>
+            <div style="display:flex;gap:8px">
+                <button class="secondary-btn" id="shuffleGames">Shuffle</button>
+            </div>
+        </div>
+
+        <section class="games-grid" id="gamesGrid">
+            <!-- Game card template - will be built from data below -->
+        </section>
+    </main>
+
+    <script>
+        // Game definitions (name, filename, description)
+        const games = [
+            {id: 'Riddle', title: 'Riddle', file: 'Riddle.html', desc: 'Quick review with riddles.'},
+            {id: 'gesture', title: 'Gesture Guess', file: 'Gesture Guess.html', desc: 'Guess the sign from the gesture.'}
+        ];
+
+        const gamesGrid = document.getElementById('gamesGrid');
+
+        // Create card for each game
+        function createGameCard(g){
+            const el = document.createElement('article');
+            el.className = 'game-card';
+            el.innerHTML = `
+                <div class="card-top">
+                    <div class="game-avatar">${g.title.slice(0,1)}</div>
+                    <div style="flex:1">
+                        <div class="game-title">${g.title}</div>
+                        <div class="game-meta">${g.desc}</div>
+                    </div>
+                    <button class="badge play-top" data-game="${g.id}" onclick="startGame(event)" aria-label="Play ${g.title}">Play</button>
+                </div>
+                
+               
+                </div>
+            `;
+            // set defaults on the card (used by gatherOptions)
+            el.dataset.difficulty = 'medium';
+            el.dataset.rounds = '5';
+            el.dataset.hints = '1'; // 1 == true
+            el.dataset.sound = '1'; // 1 == true
+            return el;
+        }
+
+        function render(){
+            gamesGrid.innerHTML = '';
+            games.forEach(g => gamesGrid.appendChild(createGameCard(g)));
+        }
+
+        // Build query string from options
+        function gatherOptions(gameId){
+            // Read from the play button's parent card dataset. Using dataset makes these values stable defaults
+            const card = document.querySelector(`.game-card [data-game='${gameId}']`)?.closest('.game-card');
+            const difficulty = card?.dataset.difficulty || 'medium';
+            const rounds = card?.dataset.rounds || '5';
+            const hints = (card?.dataset.hints === '1') ? 1 : 0;
+            const sound = (card?.dataset.sound === '1') ? 1 : 0;
+            return {difficulty, rounds, hints, sound};
+        }
+
+        // Open a new tab with game options
+        function openGame(ev){
+            const game = ev.currentTarget.getAttribute('data-game');
+            const gameInfo = games.find(g => g.id === game);
+            const opts = gatherOptions(game);
+            const params = new URLSearchParams(opts).toString();
+            const url = `${encodeURI(gameInfo.file)}?${params}`;
+            window.open(url, '_blank');
+        }
+
+        // Start game in current tab
+        function startGame(ev){
+            const game = ev.currentTarget.getAttribute('data-game');
+            const gameInfo = games.find(g => g.id === game);
+            const opts = gatherOptions(game);
+            const params = new URLSearchParams(opts).toString();
+            const url = `${encodeURI(gameInfo.file)}?${params}`;
+            window.location.href = url;
+        }
+
+        // Helpers
+        // No reset UI exists anymore; defaults live on the card dataset
+
+        document.getElementById('shuffleGames').addEventListener('click',()=>{
+            // Simple Fisher-Yates shuffle
+            for(let i=games.length-1;i>0;i--){
+                const j = Math.floor(Math.random()*(i+1));
+                [games[i],games[j]] = [games[j],games[i]];
+            }
+            render();
+        });
+
+        // Nothing to toggle anymore (options removed) — no-op
+
+        // Initial render
+        render();
+    </script>
+</body>
+
+</html>

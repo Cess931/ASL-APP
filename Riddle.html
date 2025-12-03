@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Language Riddle Game</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: #f0f2f5;
+            min-height: 100vh;
+            padding: 0;
+        }
+
+        /* Facebook-style Header */
+        .fb-header {
+            background: #FFFFFF;
+            color: #050505;
+            padding: 1rem 1.5rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border-bottom: 1px solid #E4E6EB;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0;
+        }
+
+        .fb-header h1 {
+    margin: 0;
+    width: 100%;
+    text-align: center;
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+
+        /* Small, unobtrusive back button on the left of the header */
+        .back-btn {
+            background: none;
+            border: none;
+            color: #050505;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 50%;
+            line-height: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s ease;
+            text-decoration: none;
+        }
+
+        .back-btn:hover {
+            background: #F0F2F5;
+        }
+
+        .back-btn:active {
+            background: #E4E6EB;
+        }
+
+        .header-spacer {
+            width: 40px;
+        }
+
+        .container {
+            max-width: 680px;
+            margin: 0 auto;
+            padding: 16px;
+        }
+
+        /* Facebook-style Card */
+        .fb-card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+            margin-bottom: 16px;
+        }
+
+        .card-header {
+            padding: 12px 16px;
+            border-bottom: 1px solid #e4e6eb;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .card-info {
+            flex: 1;
+        }
+
+        .card-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: #050505;
+            margin-bottom: 2px;
+        }
+
+        .card-subtitle {
+            font-size: 13px;
+            color: #65676b;
+        }
+
+        .score-stats {
+            display: flex;
+            gap: 8px;
+            font-size: 13px;
+        }
+
+        .stat-badge {
+            background: #e7f3ff;
+            color: #1877f2;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-weight: 600;
+        }
+
+        .card-body {
+            padding: 16px;
+        }
+
+        .riddle-text {
+            font-size: 16px;
+            color: #050505;
+            line-height: 1.5;
+            margin-bottom: 16px;
+        }
+
+        /* result area for gifs */
+        #result-area {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 10px 0;
+            min-height: 120px;
+            /* keeps the area stable while centered */
+        }
+
+        #result-gif {
+            max-width: 220px;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, .12);
+            display: block;
+            margin: auto;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .option-btn {
+            background: #f0f2f5;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 16px;
+            font-size: 15px;
+            color: #050505;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: left;
+            font-family: inherit;
+            font-weight: 500;
+        }
+
+        .option-btn:hover {
+            background: #e4e6eb;
+        }
+
+        .option-btn:active {
+            transform: scale(0.98);
+        }
+
+        .option-btn.correct {
+            background: #d4edda;
+            color: #155724;
+            font-weight: 600;
+        }
+
+        .option-btn.wrong {
+            background: #f8d7da;
+            color: #721c24;
+            font-weight: 600;
+        }
+
+        .option-btn:disabled {
+            cursor: not-allowed;
+        }
+
+        .card-footer {
+            padding: 8px 16px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .reactions {
+            display: flex;
+            gap: 8px;
+            color: #65676b;
+            font-size: 13px;
+        }
+
+        .reaction-btn {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            padding: 6px 12px;
+            background: transparent;
+            border: none;
+            color: #65676b;
+            cursor: pointer;
+            border-radius: 4px;
+            font-size: 13px;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+
+        .reaction-btn:hover {
+            background: #f0f2f5;
+        }
+
+        .reaction-btn.active {
+            color: #1877f2;
+        }
+
+        .next-btn-container {
+            padding: 0 16px 16px;
+        }
+
+        .next-btn {
+            background: #1877f2;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            padding: 10px 16px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.2s;
+            display: none;
+        }
+
+        .next-btn:hover {
+            background: #166fe5;
+        }
+
+        .next-btn:active {
+            transform: scale(0.98);
+        }
+
+        .next-btn.show {
+            display: block;
+        }
+
+        .comment-section {
+            border-top: 1px solid #e4e6eb;
+            padding: 12px 16px;
+            display: none;
+        }
+
+        .comment-section.show {
+            display: block;
+        }
+
+        .comment {
+            display: flex;
+            gap: 8px;
+            align-items: start;
+        }
+
+        .comment-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+
+        .comment-bubble {
+            background: #f0f2f5;
+            padding: 8px 12px;
+            border-radius: 18px;
+            font-size: 14px;
+            color: #050505;
+            line-height: 1.4;
+        }
+
+        .comment-bubble.correct {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .comment-bubble.wrong {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .game-over {
+            text-align: center;
+            padding: 32px 16px;
+        }
+
+        .game-over-emoji {
+            font-size: 64px;
+            margin-bottom: 16px;
+        }
+
+        .game-over h2 {
+            color: #050505;
+            font-size: 28px;
+            margin-bottom: 12px;
+        }
+
+        .game-over p {
+            font-size: 16px;
+            color: #65676b;
+            margin-bottom: 16px;
+        }
+
+        .score-display {
+            background: #f0f2f5;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .score-big {
+            font-size: 48px;
+            color: #1877f2;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .restart-btn {
+            background: #1877f2;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            padding: 12px 24px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .restart-btn:hover {
+            background: #166fe5;
+        }
+
+        .restart-btn:active {
+            transform: scale(0.98);
+        }
+
+        @media (max-width: 680px) {
+            .container {
+                padding: 8px;
+            }
+
+            .fb-card {
+                border-radius: 0;
+                margin-bottom: 8px;
+            }
+
+            .card-body {
+                padding: 12px;
+            }
+
+            .riddle-text {
+                font-size: 15px;
+            }
+
+            .option-btn {
+                font-size: 14px;
+                padding: 10px 12px;
+            }
+
+            .score-stats {
+                flex-wrap: wrap;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="fb-header">
+    <button class="back-btn" id="back-btn" aria-label="Go back">
+        <span class="material-symbols-outlined">arrow_back</span>
+    </button>
+
+    <h1>Riddles</h1>
+
+    <div class="header-spacer"></div>
+</div>
+
+
+    <div class="container">
+        <div class="fb-card" id="game-card">
+            <div class="card-header">
+                <div class="avatar">🎮</div>
+                <div class="card-info">
+                    <div class="card-title">Sign Language Riddles</div>
+                    <div class="card-subtitle">
+                        <span id="riddle-number">Question 1 of 24</span> •
+                        <span class="score-stats">
+                            <span class="stat-badge">Score: <span id="score">0</span></span>
+                            <span class="stat-badge">🔥 <span id="streak">0</span></span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-body">
+                <div class="riddle-text" id="riddle-text"></div>
+                <!-- area to show a result GIF (correct sign or hint) -->
+                <div id="result-area" style="text-align:center; margin:10px 0;">
+                    <img id="result-gif" alt=""
+                        style="display:none; max-width:220px; border-radius:8px; box-shadow:0 1px 3px rgba(0,0,0,.12);">
+                </div>
+                <div class="options" id="options"></div>
+            </div>
+
+            <div class="comment-section" id="comment-section">
+                <div class="comment">
+                    <div class="comment-avatar">✨</div>
+                    <div class="comment-bubble" id="feedback" aria-live="polite"></div>
+                </div>
+            </div>
+
+            <div class="next-btn-container">
+                <button class="next-btn" id="next-btn">Next Question →</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const riddles = [
+            {
+                riddle: "I start every conversation and end it with respect. Wave your hand and show you care. What am I?",
+                options: ["Thank you", "Hello", "Goodbye", "Please"],
+                correct: 1
+            },
+            {
+                riddle: "When parting ways, I'm the gesture you make. A simple wave that means 'until we meet again'. What am I?",
+                options: ["See you later", "Goodbye", "Good night", "Hello"],
+                correct: 1
+            },
+            {
+                riddle: "I'm the magic word that shows you're polite, making requests gentle and just right. What am I?",
+                options: ["Thank you", "Excuse me", "Please", "Help"],
+                correct: 2
+            },
+            {
+                riddle: "When you've made a mistake or bumped into someone, I'm the word that makes things right. What am I?",
+                options: ["Excuse me", "Sorry", "Please", "Help"],
+                correct: 1
+            },
+            {
+                riddle: "The sun has risen, it's a brand new day! This greeting starts your morning in a cheerful way. What am I?",
+                options: ["Hello", "Good morning", "Good", "How are you?"],
+                correct: 1
+            },
+            {
+                riddle: "When the stars come out and the day is done, this wish sends you off to peaceful slumber. What am I?",
+                options: ["Goodbye", "See you tomorrow", "Good night", "See you later"],
+                correct: 2
+            },
+            {
+                riddle: "A question we ask when we meet someone new, checking in on how they feel. What am I?",
+                options: ["What's your name?", "How are you?", "Nice to meet you", "Hello"],
+                correct: 1
+            },
+            {
+                riddle: "When meeting someone for the first time, this phrase shows you're glad to connect. What am I?",
+                options: ["Hello", "How are you?", "Nice to meet you", "What's your name?"],
+                correct: 2
+            },
+            {
+                riddle: "A question of identity, asking for what you're called. What am I?",
+                options: ["How are you?", "Who are you?", "What's your name?", "Nice to meet you"],
+                correct: 2
+            },
+            {
+                riddle: "The response to 'What's your name?', introducing yourself with pride. What am I?",
+                options: ["Hello", "My name is...", "Nice to meet you", "How are you?"],
+                correct: 1
+            },
+            {
+                riddle: "When someone helps you out or does something kind, I'm the phrase that shows gratitude. What am I?",
+                options: ["Please", "Sorry", "Thank you", "Excuse me"],
+                correct: 2
+            },
+            {
+                riddle: "Your stomach rumbles and growls, you need some food right now! What are you?",
+                options: ["Tired", "Hungry", "Busy", "Bad"],
+                correct: 1
+            },
+            {
+                riddle: "Your eyes are heavy, you need some rest. Time to sleep and recharge. What are you?",
+                options: ["Hungry", "Tired", "Busy", "Fine"],
+                correct: 1
+            },
+            {
+                riddle: "No time to chat, so much to do! Your schedule is packed. What are you?",
+                options: ["Busy", "Tired", "Good", "Bad"],
+                correct: 0
+            },
+            {
+                riddle: "When you're in trouble and need assistance, you call out for this. What do you need?",
+                options: ["Sorry", "Please", "Help", "Excuse me"],
+                correct: 2
+            },
+            {
+                riddle: "I cannot hear the sounds around me. This is who I am. What am I?",
+                options: ["Deaf", "Blind", "Tired", "Busy"],
+                correct: 0
+            },
+            {
+                riddle: "I can perceive sounds and voices clearly. This describes my ability. What am I?",
+                options: ["Deaf", "Hearing", "Speaking", "Listening"],
+                correct: 1
+            },
+            {
+                riddle: "I can hear some sounds, but not all clearly. I need extra support. What am I?",
+                options: ["Deaf", "Hearing", "Hard of hearing", "Busy"],
+                correct: 2
+            },
+            {
+                riddle: "Everything is wonderful, positive, and right! This feeling is bright. What is it?",
+                options: ["Fine", "Good", "Bad", "Busy"],
+                correct: 1
+            },
+            {
+                riddle: "Things aren't going well, feeling down and out. The opposite of good. What is it?",
+                options: ["Good", "Bad", "Tired", "Sorry"],
+                correct: 1
+            },
+            {
+                riddle: "Not great, not terrible, just okay and alright. A neutral state of being. What is it?",
+                options: ["Good", "Bad", "Fine", "Busy"],
+                correct: 2
+            },
+            {
+                riddle: "Before interrupting or getting attention, this phrase asks for permission politely. What am I?",
+                options: ["Sorry", "Excuse me", "Please", "Help"],
+                correct: 1
+            },
+            {
+                riddle: "We're parting now but not for long, we'll meet again soon. What do you say?",
+                options: ["Goodbye", "See you later", "Good night", "See you tomorrow"],
+                correct: 1
+            },
+            {
+                riddle: "When the morning comes again, we'll reconnect. This promise is for the next day. What is it?",
+                options: ["See you later", "Good morning", "See you tomorrow", "Good night"],
+                correct: 2
+            }
+        ];
+
+        let currentRiddle = 0;
+        let score = 0;
+        let streak = 0;
+        let answered = false;
+
+        let riddleText = document.getElementById('riddle-text');
+        let riddleNumber = document.getElementById('riddle-number');
+        let optionsContainer = document.getElementById('options');
+        let feedback = document.getElementById('feedback');
+        let commentSection = document.getElementById('comment-section');
+        let nextBtn = document.getElementById('next-btn');
+        let scoreDisplay = document.getElementById('score');
+        let streakDisplay = document.getElementById('streak');
+        let gameCard = document.getElementById('game-card');
+        let resultGif = document.getElementById('result-gif'); // reference to gif image element
+
+        // Add this function to your script
+        function speak(text) {
+            if (!('speechSynthesis' in window)) return;
+            // stop currently speaking to avoid overlap
+            if (window.speechSynthesis.speaking) {
+                window.speechSynthesis.cancel();
+            }
+            const utter = new SpeechSynthesisUtterance(text);
+            // Optional tuning:
+            utter.lang = 'en-US';
+            utter.rate = 1;
+            utter.pitch = 1;
+            // pick a voice if you want:
+            const voices = window.speechSynthesis.getVoices();
+            if (voices.length) {
+                // choose one found (optional)
+                utter.voice = voices.find(v => v.lang.startsWith('en')) || voices[0];
+            }
+            window.speechSynthesis.speak(utter);
+        }
+        // Map a label (option text) to a gif filename that exists in project root. If
+        // filename not found, the <img> onerror handler hides it.
+        function sanitizeLabelToFilename(label) {
+            if (!label) return '';
+            // Normalization map for a few specially named files
+            const map = {
+                "what's your name?": 'whats_your_name',
+                "my name is...": 'my_name_is',
+                "see you later": 'see_you_later',
+                "see you tomorrow": 'see_you_tomorrow',
+                "how are you?": 'how_are_you',
+                "good night": 'good_night',
+                "good morning": 'good_morning',
+                "hard of hearing": 'hard_of_hearing',
+                "excuse me": 'excuse_me'
+            };
+
+            const key = label.toLowerCase();
+            if (map[key]) return `${map[key]}.gif`;
+
+            // default sanitation: strip punctuation, collapse spaces into underscores
+            return key.replace(/[^a-z0-9 ]+/g, '').trim().replace(/ /g, '').replace(/\s+/g, '_') + '.gif';
+        }
+
+        function showResultGifFor(label) {
+            if (!resultGif) resultGif = document.getElementById('result-gif');
+            if (!resultGif) return;
+
+            const filename = sanitizeLabelToFilename(label);
+            if (!filename) return;
+
+            resultGif.onerror = () => {
+                // Hide the image if GIF not found or can't be loaded
+                resultGif.style.display = 'none';
+            };
+
+            resultGif.src = filename; // local gif should be in project root
+            resultGif.alt = `${label} sign`;
+            resultGif.style.display = 'block';
+        }
+
+        function hideResultGif() {
+            if (!resultGif) resultGif = document.getElementById('result-gif');
+            if (!resultGif) return;
+            resultGif.style.display = 'none';
+            resultGif.src = '';
+            resultGif.alt = '';
+        }
+
+        // WebAudio based short positive jingle
+        function playCorrectSound() {
+            try {
+                const AudioContext = window.AudioContext || window.webkitAudioContext;
+                const ctx = new AudioContext();
+                const now = ctx.currentTime;
+                const freqs = [523.25, 659.25, 783.99]; // C5,E5,G5
+                freqs.forEach((f, i) => {
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(f, now + i * 0.07);
+                    gain.gain.setValueAtTime(0.0001, now + i * 0.07);
+                    gain.gain.linearRampToValueAtTime(0.12, now + i * 0.07 + 0.01);
+                    gain.gain.linearRampToValueAtTime(0.0001, now + i * 0.07 + 0.16);
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+                    osc.start(now + i * 0.07);
+                    osc.stop(now + i * 0.07 + 0.18);
+                });
+                // Close context after short delay (not strictly necessary)
+                setTimeout(() => { ctx.close(); }, 500);
+            } catch (e) {
+                // silent fallback if audio not allowed
+                console.warn('Audio play failed', e);
+            }
+        }
+
+        // WebAudio based 'wrong' buzzer
+        function playErrorSound() {
+            try {
+                const AudioContext = window.AudioContext || window.webkitAudioContext;
+                const ctx = new AudioContext();
+                const now = ctx.currentTime;
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(220, now);
+                gain.gain.setValueAtTime(0.0001, now);
+                gain.gain.linearRampToValueAtTime(0.2, now + 0.01);
+                gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.4);
+                osc.connect(gain); gain.connect(ctx.destination);
+                osc.start(now); osc.stop(now + 0.4);
+                setTimeout(() => { ctx.close(); }, 500);
+            } catch (e) {
+                console.warn('Audio play failed', e);
+            }
+        }
+
+        function loadRiddle() {
+            answered = false;
+            const riddle = riddles[currentRiddle];
+
+            riddleNumber.textContent = `Question ${currentRiddle + 1} of ${riddles.length}`;
+            riddleText.textContent = riddle.riddle;
+
+            optionsContainer.innerHTML = '';
+            commentSection.classList.remove('show');
+            nextBtn.classList.remove('show');
+            // hide any previous result GIF; we only hide when a new riddle loads (which happens on Next)
+            hideResultGif();
+
+            riddle.options.forEach((option, index) => {
+                const btn = document.createElement('button');
+                btn.className = 'option-btn';
+                btn.textContent = option;
+                btn.onclick = () => checkAnswer(index);
+                optionsContainer.appendChild(btn);
+            });
+        }
+
+        function checkAnswer(selected) {
+            if (answered) return;
+            answered = true;
+
+            const riddle = riddles[currentRiddle];
+            const buttons = document.querySelectorAll('.option-btn');
+
+            buttons.forEach((btn, index) => {
+                btn.disabled = true;
+                if (index === riddle.correct) {
+                    btn.classList.add('correct');
+                }
+                if (index === selected && selected !== riddle.correct) {
+                    btn.classList.add('wrong');
+                }
+            });
+
+            commentSection.classList.add('show');
+
+            if (selected === riddle.correct) {
+                feedback.textContent = 'Correct! Well done.';
+                feedback.className = 'comment-bubble correct';
+                score += 10;
+                streak += 1;
+                scoreDisplay.textContent = score;
+                streakDisplay.textContent = streak;
+                playCorrectSound();
+                speak('Correct');
+                showResultGifFor(riddle.options[riddle.correct]);
+            } else {
+                feedback.textContent = `Oops! The correct answer was "${riddle.options[riddle.correct]}".`;
+                feedback.className = 'comment-bubble wrong';
+                streak = 0;
+                streakDisplay.textContent = streak;
+                playErrorSound();
+                speak('Incorrect');
+                showResultGifFor(riddle.options[riddle.correct]);
+            }
+
+            if (currentRiddle < riddles.length - 1) {
+                nextBtn.classList.add('show');
+            } else {
+                setTimeout(showGameOver, 1500);
+            }
+        }
+
+        function nextRiddle() {
+            currentRiddle++;
+            loadRiddle();
+        }
+
+        function showGameOver() {
+            const percentage = Math.round((score / (riddles.length * 10)) * 100);
+            let emoji = '🎉';
+            let message = 'Great job!';
+
+            if (percentage === 100) {
+                emoji = '🏆';
+                message = 'Perfect score! You\'re a sign language master!';
+            } else if (percentage >= 80) {
+                emoji = '🌟';
+                message = 'Excellent work! You know your signs!';
+            } else if (percentage >= 60) {
+                emoji = '👍';
+                message = 'Good effort! Keep practicing!';
+            } else {
+                emoji = '💪';
+                message = 'Nice try! Practice makes perfect!';
+            }
+
+            gameCard.innerHTML = `
+                <div class="card-header">
+                    <div class="avatar">🏁</div>
+                    <div class="card-info">
+                        <div class="card-title">Quiz Completed!</div>
+                        <div class="card-subtitle">All 24 questions answered</div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="game-over">
+                        <div class="game-over-emoji">${emoji}</div>
+                        <h2>Game Over!</h2>
+                        <p>${message}</p>
+                        <div class="score-display">
+                            <div class="score-big">${score}</div>
+                            <div style="color: #65676b;">out of ${riddles.length * 10} points</div>
+                            <div style="margin-top: 8px; font-size: 18px; font-weight: 600; color: #1877f2;">${percentage}% Accuracy</div>
+                        </div>
+                        <button class="restart-btn" onclick="restartGame()">🔄 Play Again</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function restartGame() {
+            currentRiddle = 0;
+            score = 0;
+            streak = 0;
+
+            gameCard.innerHTML = `
+                <div class="card-header">
+                    <div class="avatar">🎮</div>
+                    <div class="card-info">
+                        <div class="card-title">Sign Language Quiz Challenge</div>
+                        <div class="card-subtitle">
+                            <span id="riddle-number">Question 1 of 24</span> • 
+                            <span class="score-stats">
+                                <span class="stat-badge">Score: <span id="score">0</span></span>
+                                <span class="stat-badge">🔥 <span id="streak">0</span></span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                        <div class="riddle-text" id="riddle-text"></div>
+                        <div id="result-area" style="text-align:center; margin:10px 0;">
+                            <img id="result-gif" alt="" style="display:none; max-width:220px; border-radius:8px; box-shadow:0 1px 3px rgba(0,0,0,.12);">
+                        </div>
+                        <div class="options" id="options"></div>
+                </div>
+                <div class="comment-section" id="comment-section">
+                    <div class="comment">
+                        <div class="comment-avatar">✨</div>
+                        <div class="comment-bubble" id="feedback" aria-live="polite"></div>
+                    </div>
+                </div>
+                <div class="next-btn-container">
+                    <button class="next-btn" id="next-btn">Next Question →</button>
+                </div>
+            `;
+
+            // Reinitialize references (IDs were recreated)
+            riddleText = document.getElementById('riddle-text');
+            riddleNumber = document.getElementById('riddle-number');
+            optionsContainer = document.getElementById('options');
+            feedback = document.getElementById('feedback');
+            commentSection = document.getElementById('comment-section');
+            scoreDisplay = document.getElementById('score');
+            streakDisplay = document.getElementById('streak');
+            nextBtn = document.getElementById('next-btn');
+            resultGif = document.getElementById('result-gif');
+            nextBtn.addEventListener('click', nextRiddle);
+
+            loadRiddle();
+        }
+
+        nextBtn.addEventListener('click', nextRiddle);
+        // Back button: navigate back or go to index as a fallback
+        const backBtn = document.getElementById('back-btn');
+        if (backBtn) {
+            backBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                try {
+                    if (window.history && window.history.length > 1) {
+                        window.history.back();
+                    } else {
+                        // fallback to a main page if there's no history
+                        window.location.href = 'intro.html';
+                    }
+                } catch (err) {
+                    window.location.href = 'intro.html';
+                }
+            });
+        }
+        loadRiddle();
+    </script>
+</body>
+
+</html>

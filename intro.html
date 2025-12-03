@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basic ASL App</title>
+</head>
+
+<body>
+    <header class="app-header">
+        <h1 class="app-title">Basic ASL App</h1>
+        <button class="menu-btn" aria-label="Menu">
+
+        </button>
+    </header>
+
+    <main class="main-content">
+        <section class="welcome-section">
+            <div class="illustration">
+                <img src="hi5.png" alt="Welcome illustration" class="avatar" />
+            </div>
+            <div class="greeting">
+                <h2>Hello, user.</h2>
+                <p>Good day!</p>
+            </div>
+        </section>
+
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+
+        <section class="navigation-grid">
+            <a href="learn.html" class="nav-card">
+                <div class="card-icon material-symbols-outlined">menu_book</div>
+                <h3>Learn</h3>
+            </a>
+
+            <a href="practice.html" class="nav-card">
+                <div class="card-icon material-symbols-outlined">edit_note</div>
+                <h3>Practice</h3>
+            </a>
+
+            <a href="help.html" class="nav-card">
+                <div class="card-icon material-symbols-outlined">chat_bubble</div>
+                <h3>Help</h3>
+            </a>
+
+            <a href="about.html" class="nav-card">
+                <div class="card-icon material-symbols-outlined">info</div>
+                <h3>About</h3>
+            </a>
+        </section>
+
+    </main>
+
+    <style>
+    
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #F0F2F5;
+            min-height: 100vh;
+            color: #050505;
+        }
+
+        .material-symbols-outlined {
+            font-size: 40px;
+            font-weight: 300;
+        }
+
+        .app-header {
+            background: #FFFFFF;
+            padding: 1rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-bottom: 1px solid #E4E6EB;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .back-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #050505;
+            text-decoration: none;
+            border-radius: 50%;
+            transition: background 0.2s ease;
+        }
+
+        .back-btn:hover {
+            background: #F0F2F5;
+        }
+
+        .back-btn:active {
+            background: #E4E6EB;
+        }
+
+        .app-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #050505;
+            flex: 1;
+            text-align: center;
+        }
+
+        .header-spacer {
+            width: 40px;
+        }
+
+        .menu-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            padding: 5px;
+            transition: transform 0.2s ease;
+        }
+
+        .menu-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .menu-btn:active {
+            transform: scale(0.95);
+            opacity: 0.7;
+        }
+
+        .menu-btn span {
+            width: 5px;
+            height: 5px;
+            background: #65676B;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .main-content {
+            padding: 1.5rem 1rem;
+            max-width: 100%;
+            margin: 0 auto;
+        }
+
+        .welcome-section {
+            background: #FFFFFF;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .illustration {
+            flex-shrink: 0;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .avatar {
+            width: 140px;
+            height: 160px;
+        }
+
+        .greeting h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #050505;
+            margin-bottom: 0.25rem;
+        }
+
+        .greeting p {
+            font-size: 1.1rem;
+            color: #65676B;
+            font-weight: 400;
+        }
+
+        .navigation-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.5rem;
+        }
+
+        .nav-card {
+            background: #FFFFFF;
+            border-radius: 8px;
+            padding: 3rem 1.5rem;
+            text-decoration: none;
+            color: #050505;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-card::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(0, 0, 0, 0.05);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .nav-card:nth-child(1) {
+            background: #FFFFFF;
+            color: #050505;
+        }
+
+        .nav-card:nth-child(1) h3 {
+            color: #050505;
+        }
+
+        .nav-card:nth-child(1):hover {
+            background: #F0F2F5;
+        }
+
+        .nav-card:nth-child(2) {
+            background: #FFFFFF;
+            color: #050505;
+        }
+
+        .nav-card:nth-child(2) h3 {
+            color: #050505;
+        }
+
+        .nav-card:nth-child(2):hover {
+            background: #F0F2F5;
+        }
+
+        .nav-card:nth-child(3) {
+            background: #FFFFFF;
+            color: #050505;
+        }
+
+        .nav-card:nth-child(3) h3 {
+            color: #050505;
+        }
+
+        .nav-card:nth-child(3):hover {
+            background: #F0F2F5;
+        }
+
+        .nav-card:nth-child(4) {
+            background: #FFFFFF;
+            color: #050505;
+        }
+
+        .nav-card:nth-child(4) h3 {
+            color: #050505;
+        }
+
+        .nav-card:nth-child(4):hover {
+            background: #F0F2F5;
+        }
+
+        .nav-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+        }
+
+        .nav-card:active {
+            transform: scale(0.98);
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-card:active::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .nav-card:nth-child(1):active {
+            background: #E4E6EB;
+        }
+
+        .nav-card:nth-child(2):active {
+            background: #E4E6EB;
+        }
+
+        .nav-card:nth-child(3):active {
+            background: #E4E6EB;
+        }
+
+        .nav-card:nth-child(4):active {
+            background: #E4E6EB;
+        }
+
+        .card-icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.75rem;
+            transition: transform 0.3s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+        .nav-card:hover .card-icon {
+            transform: scale(1.15) rotate(5deg);
+        }
+
+        .nav-card:active .card-icon {
+            transform: scale(0.9);
+        }
+
+        .nav-card h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #050505;
+            transition: transform 0.3s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+        .nav-card:hover h3 {
+            transform: scale(1.05);
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                padding: 1.25rem;
+            }
+
+            .welcome-section {
+                padding: 1.5rem;
+            }
+
+            .avatar {
+                width: 130px;
+                height: 150px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .app-header {
+                padding: 0.875rem 1rem;
+            }
+
+            .app-title {
+                font-size: 1.1rem;
+            }
+
+            .main-content {
+                padding: 1rem 0.875rem;
+            }
+
+            .welcome-section {
+                padding: 1.125rem;
+                gap: 1rem;
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .avatar {
+                width: 110px;
+                height: 130px;
+            }
+
+            .greeting h2 {
+                font-size: 1.25rem;
+            }
+
+            .greeting p {
+                font-size: 1rem;
+            }
+
+            .navigation-grid {
+                gap: 0.75rem;
+            }
+
+            .nav-card {
+                padding: 2.25rem 1rem;
+                min-height: 140px;
+            }
+
+            .card-icon {
+                font-size: 2.25rem;
+            }
+
+            .nav-card h3 {
+                font-size: 1.05rem;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .app-title {
+                font-size: 1rem;
+            }
+
+            .main-content {
+                padding: 0.875rem 0.75rem;
+            }
+
+            .welcome-section {
+                padding: 1rem;
+                gap: 0.875rem;
+            }
+
+            .avatar {
+                width: 100px;
+                height: 120px;
+            }
+
+            .greeting h2 {
+                font-size: 1.15rem;
+            }
+
+            .greeting p {
+                font-size: 0.95rem;
+            }
+
+            .navigation-grid {
+                gap: 0.625rem;
+            }
+
+            .nav-card {
+                padding: 2rem 0.875rem;
+                min-height: 130px;
+            }
+
+            .card-icon {
+                font-size: 2rem;
+                margin-bottom: 0.625rem;
+            }
+
+            .nav-card h3 {
+                font-size: 1rem;
+            }
+        }
+
+        @media (min-width: 769px) {
+            .main-content {
+                max-width: 600px;
+                padding: 2rem 1.5rem;
+            }
+
+            .welcome-section {
+                padding: 2rem;
+            }
+
+            .avatar {
+                width: 160px;
+                height: 180px;
+            }
+
+            .greeting h2 {
+                font-size: 1.75rem;
+            }
+
+            .greeting p {
+                font-size: 1.25rem;
+            }
+
+            .navigation-grid {
+                gap: 1.25rem;
+            }
+
+            .nav-card {
+                padding: 3.5rem 2rem;
+            }
+
+            .card-icon {
+                font-size: 3rem;
+            }
+
+            .nav-card h3 {
+                font-size: 1.4rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .welcome-section {
+                flex-direction: row;
+                justify-content: flex-start;
+            }
+
+            .illustration {
+                flex-shrink: 0;
+            }
+
+            .greeting {
+                flex: 1;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .welcome-section {
+                flex-direction: row;
+                align-items: center;
+                gap: 1rem;
+            }
+
+            .illustration {
+                flex-shrink: 0;
+            }
+
+            .avatar {
+                width: 100px;
+                height: 120px;
+            }
+
+            .greeting h2 {
+                font-size: 1.2rem;
+            }
+
+            .greeting p {
+                font-size: 0.95rem;
+            }
+        }
+    </style>
+</body>
+
+</html>
