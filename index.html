@@ -66,14 +66,14 @@
     }
 
     .slide {
-        min-width: 100%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        /* CHANGE: Restore space-between to push the bottom elements down */
-        justify-content: space-between;
-        padding: 10px 30px 30px;
-    }
+    min-width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start; /* change from space-between */
+    padding: 10px 30px 30px;
+    position: relative;
+}
 
     .illustration {
         flex: none;
@@ -144,20 +144,21 @@
 
 
     .next-btn,
-    .start-btn {
-        width: 100%;
-        padding: 16px;
-        background: #1877f2;
-        color: white;
-        border: none;
-        border-radius: 12px;
-        font-size: 17px;
-        font-weight: 600;
-        cursor: pointer;
-        transition: background 0.3s ease;
-        /* CHANGE: Add top margin to separate button from dots */
-        margin-top: 16px;
-    }
+.start-btn {
+    width: 100%;
+    padding: 16px;
+    background: #1877f2;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 17px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    margin-top: 16px;
+    position: absolute;   /* position the button relative to slide */
+    bottom: 60px;         /* move it slightly up from bottom */
+}
 
     .next-btn:hover,
     .start-btn:hover {
