@@ -17,6 +17,7 @@
 		<div class="topbar-title">Help</div>
 		<div class="topbar-spacer"></div>
 	</header>
+	<div class="theme-animation-bg"></div>
 	<style>
 		:root {
 			--fb-blue: #1877f2;
@@ -38,8 +39,10 @@
 		body {
 			margin: 0;
 			font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-			background: var(--bg);
-			color: #050505;
+			background: var(--body-bg, var(--bg, #f0f2f5));
+			color: var(--text-color, #050505);
+			transition: background 0.8s ease, color 0.8s ease;
+			position: relative;
 		}
 
 		.topbar {
@@ -48,13 +51,14 @@
 			justify-content: space-between;
 			gap: 0;
 			padding: 1rem 1.5rem;
-			background: #FFFFFF;
+			background: transparent !important;
 			color: #050505;
 			position: sticky;
 			top: 0;
-			z-index: 10;
-			box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-			border-bottom: 1px solid #E4E6EB;
+			z-index: 100;
+			box-shadow: none;
+			border-bottom: none;
+			transition: background 0.8s ease, box-shadow 0.8s ease, border-bottom 0.8s ease;
 		}
 
 		.topbar .back-btn {
@@ -65,18 +69,26 @@
 			display: flex;
 			align-items: center;
 			justify-content: center;
-			color: #050505;
+			color: var(--text-color, #050505);
 			text-decoration: none;
 			border-radius: 50%;
-			transition: background 0.2s ease
+			transition: background 0.2s ease, color 0.8s ease
 		}
 
 		.topbar .back-btn:hover {
 			background: #F0F2F5
 		}
+		
+		.night-theme .topbar .back-btn:hover {
+			background: #1A345B
+		}
 
 		.topbar .back-btn:active {
 			background: #E4E6EB
+		}
+		
+		.night-theme .topbar .back-btn:active {
+			background: #14284A
 		}
 
 		.topbar .material-symbols-outlined {
@@ -86,9 +98,10 @@
 		.topbar-title {
 			font-size: 1.25rem;
 			font-weight: 700;
-			color: #050505;
+			color: var(--title-color, #050505);
 			flex: 1;
-			text-align: center
+			text-align: center;
+			transition: color 0.8s ease
 		}
 
 		.topbar-spacer {
@@ -141,7 +154,9 @@
 			margin: 24px auto;
 			padding: 0 18px;
 			display: flex;
-			gap: 20px
+			gap: 20px;
+			position: relative;
+			z-index: 1
 		}
 
 		.sidebar {
@@ -163,12 +178,13 @@
 			align-items: center;
 			padding: 8px;
 			border-radius: 6px;
-			color: #050505;
-			text-decoration: none
+			color: var(--text-color, #050505);
+			text-decoration: none;
+			transition: background 0.2s ease, color 0.8s ease
 		}
 
 		.sidebar nav a:hover {
-			background: var(--bg)
+			background: var(--body-bg, var(--bg))
 		}
 
 		.main {
@@ -184,7 +200,9 @@
 
 		.page-header h1 {
 			margin: 0;
-			font-size: 24px
+			font-size: 24px;
+			color: var(--text-color, #050505);
+			transition: color 0.8s ease
 		}
 
 		.page-header p {
@@ -224,17 +242,20 @@
 		}
 
 		.topic {
-			background: var(--card);
+			background: var(--card-bg, var(--card, #ffffff));
 			border-radius: 8px;
 			padding: 12px;
 			display: flex;
 			gap: 10px;
-			align-items: flex-start
+			align-items: flex-start;
+			transition: background 0.8s ease
 		}
 
 		.topic h3 {
 			margin: 0;
-			font-size: 16px
+			font-size: 16px;
+			color: var(--text-color, #050505);
+			transition: color 0.8s ease
 		}
 
 		.topic p {
@@ -244,10 +265,14 @@
 		}
 
 		.card {
-			background: var(--card);
+			background: var(--card-bg, var(--card, #ffffff));
 			border-radius: 8px;
 			padding: 12px;
-			margin-bottom: 16px
+			margin-bottom: 16px;
+			box-shadow: var(--card-shadow, 0 1px 2px rgba(0, 0, 0, 0.1));
+			transition: background 0.8s ease, box-shadow 0.8s ease;
+			position: relative;
+			z-index: 1
 		}
 
 		.faq-item {
@@ -264,7 +289,14 @@
 		}
 
 		.faq-q-text {
-			font-weight: 600
+			font-weight: 600;
+			color: var(--text-color, #050505);
+			transition: color 0.8s ease
+		}
+		
+		.card h2 {
+			color: var(--text-color, #050505);
+			transition: color 0.8s ease
 		}
 
 		.faq-answer {
@@ -345,6 +377,169 @@
 
 		.faq-item:last-child {
 			border-bottom: 0
+		}
+
+		/* ------------------------------------------------ */
+		/* --- THEME STYLES --- */
+		/* ------------------------------------------------ */
+		
+		/* 1. MORNING (SUNNY) THEME: Sunny/Yellow-Orange */
+		.sunny-theme {
+			--body-bg: #FFE0B2;
+			--header-bg: #FFCC80;
+			--title-color: #E65100;
+			--card-bg: #FFFFFF;
+			--card-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+			--text-color: #050505;
+		}
+
+		/* 2. AFTERNOON (BLUE CLOUDY) THEME: Light Blue */
+		.afternoon-theme {
+			--body-bg: #E0F7FA;
+			--header-bg: #B3E5FC;
+			--title-color: #01579B;
+			--card-bg: #FFFFFF;
+			--card-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+			--text-color: #050505;
+		}
+
+		/* 3. NIGHT (DARK BLUE MOON/STARS) THEME */
+		.night-theme {
+			--body-bg: #0D1C3C;
+			--header-bg: #14284A;
+			--title-color: #B0C4DE;
+			--card-bg: #1A345B;
+			--card-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+			--text-color: #E0E0E0;
+		}
+
+		/* Theme Animation Background */
+		.theme-animation-bg {
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			z-index: -1;
+			transition: opacity 0.8s ease;
+			pointer-events: none;
+			overflow: hidden;
+		}
+
+		/* Sunny Theme - Animated Sun */
+		.sunny-theme .theme-animation-bg {
+			background: linear-gradient(135deg, #FFB74D 0%, #FFECB3 100%);
+			opacity: 0.4;
+		}
+
+		.sunny-theme .theme-animation-bg::before {
+			content: '';
+			position: absolute;
+			top: 10%;
+			right: 10%;
+			width: 80px;
+			height: 80px;
+			border-radius: 50%;
+			background: #FFEB3B;
+			box-shadow: 0 0 40px #FFD700;
+			animation: pulseSun 4s ease-in-out infinite alternate;
+		}
+
+		@keyframes pulseSun {
+			0% { transform: scale(1); }
+			100% { transform: scale(1.05); }
+		}
+
+		/* Afternoon Theme - Animated Clouds */
+		.afternoon-theme .theme-animation-bg {
+			background: linear-gradient(135deg, #81D4FA 0%, #B3E5FC 100%);
+			opacity: 0.4;
+		}
+
+		.afternoon-theme .theme-animation-bg::before,
+		.afternoon-theme .theme-animation-bg::after {
+			content: '';
+			position: absolute;
+			background: white;
+			width: 60px;
+			height: 60px;
+			border-radius: 50%;
+			box-shadow:
+				60px -10px 0 10px white,
+				-20px 20px 0 15px white,
+				40px 40px 0 20px white;
+			filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
+			animation: moveClouds 20s linear infinite;
+		}
+
+		.afternoon-theme .theme-animation-bg::before {
+			top: 20%;
+			left: -100px;
+			transform: scale(1.1);
+			animation-duration: 22s;
+			--scale: 1.1;
+		}
+
+		.afternoon-theme .theme-animation-bg::after {
+			top: 65%;
+			left: -150px;
+			transform: scale(0.7);
+			animation-duration: 18s;
+			--scale: 0.7;
+		}
+
+		@keyframes moveClouds {
+			0% { transform: translateX(-100%) scale(var(--scale, 1)); }
+			100% { transform: translateX(300%) scale(var(--scale, 1)); }
+		}
+
+		/* Night Theme - Animated Moon and Stars */
+		.night-theme .theme-animation-bg {
+			background: linear-gradient(135deg, #0A193F 0%, #1A3F70 100%);
+			opacity: 0.6;
+		}
+
+		.night-theme .theme-animation-bg::before {
+			content: '';
+			position: fixed;
+			top: 20px;
+			right: 20px;
+			width: 50px;
+			height: 50px;
+			border-radius: 50%;
+			background: #F0E68C;
+			box-shadow: 0 0 15px rgba(255, 255, 200, 0.8);
+			animation: floatMoon 6s ease-in-out infinite alternate;
+			z-index: 2;
+		}
+
+		.night-theme .theme-animation-bg::after {
+			content: '';
+			position: absolute;
+			background: #FFFFFF;
+			width: 2px;
+			height: 2px;
+			border-radius: 50%;
+			box-shadow:
+				40px 60px 0 0.5px #fff,
+				80px 10px 0 1px #fff,
+				100px 80px 0 0.5px #fff,
+				10px 90px 0 1px #fff;
+			top: 0;
+			left: 0;
+			width: 0;
+			height: 0;
+			animation: twinkle 4s ease-in-out infinite;
+		}
+
+		@keyframes floatMoon {
+			0% { transform: translateY(0); }
+			100% { transform: translateY(5px); }
+		}
+
+		@keyframes twinkle {
+			0%, 100% { opacity: 1; }
+			50% { opacity: 0.5; }
 		}
 	</style>
 
@@ -435,7 +630,7 @@
 			q.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') q.click(); });
 		});
 
-		// Search filtering
+		// Search filtering (only if elements exist)
 		const search = document.getElementById('search');
 		const topSearch = document.getElementById('topSearch');
 		const clearBtn = document.getElementById('clearSearch');
@@ -448,14 +643,47 @@
 				it.style.display = match || query === '' ? '' : 'none';
 			});
 		}
-		search.addEventListener('input', function () { filterFAQs(this.value.trim().toLowerCase()); });
-		topSearch.addEventListener('input', function () { search.value = this.value; filterFAQs(this.value.trim().toLowerCase()); });
-		clearBtn.addEventListener('click', function () { search.value = ''; topSearch.value = ''; filterFAQs(''); search.focus(); });
+		if (search) search.addEventListener('input', function () { filterFAQs(this.value.trim().toLowerCase()); });
+		if (topSearch) topSearch.addEventListener('input', function () { if (search) search.value = this.value; filterFAQs(this.value.trim().toLowerCase()); });
+		if (clearBtn) clearBtn.addEventListener('click', function () { if (search) search.value = ''; if (topSearch) topSearch.value = ''; filterFAQs(''); if (search) search.focus(); });
 
 		// Set initial state for first FAQ open on wider screens
 		window.addEventListener('load', function () {
 			const first = document.querySelector('.faq-answer'); if (first) { first.style.maxHeight = first.scrollHeight + 'px'; document.querySelector('.faq-toggle').textContent = '-'; }
 		});
+
+		// Theme Management based on Philippine Time
+		function applyTheme() {
+			let body = document.body;
+
+			// Force Philippine Time (UTC+8)
+			const now = new Date();
+			const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
+			const philTime = new Date(utc + (8 * 60 * 60 * 1000));
+
+			let hour = philTime.getHours();
+			let themeClass = "";
+
+			// 1. Morning (Sunny Theme): 5:00 AM - 11:59 AM
+			if (hour >= 5 && hour < 12) {
+				themeClass = "sunny-theme";
+			// 2. Afternoon (Blue Cloudy Theme): 12:00 PM - 4:59 PM
+			} else if (hour >= 12 && hour < 17) {
+				themeClass = "afternoon-theme";
+			// 3. Night (Dark Blue Moon/Stars Theme): 5:00 PM - 4:59 AM
+			} else {
+				themeClass = "night-theme";
+			}
+
+			// Apply theme class to the body
+			body.className = themeClass;
+		}
+
+		// Run on load
+		applyTheme();
+
+		// Update theme every minute
+		setInterval(applyTheme, 60000);
 	</script>
 </body>
 
