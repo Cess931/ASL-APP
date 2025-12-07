@@ -15,7 +15,7 @@
         <h1 class="app-title">About</h1>
         <div class="header-spacer"></div>
     </header>
-
+    <div class="theme-animation-bg"></div>
     <main class="main-content">
         <section class="about-hero">
             <div class="hero-icon material-symbols-outlined">sign_language</div>
@@ -101,9 +101,11 @@ This project primarily aligns with SDG 10 – Reduced Inequalities, emphasizing 
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: #F0F2F5;
+            background: var(--body-bg, #F0F2F5);
             min-height: 100vh;
-            color: #050505;
+            color: var(--text-color, #050505);
+            transition: background 0.8s ease, color 0.8s ease;
+            position: relative;
         }
 
         .material-symbols-outlined {
@@ -112,16 +114,17 @@ This project primarily aligns with SDG 10 – Reduced Inequalities, emphasizing 
         }
 
         .app-header {
-            background: #FFFFFF;
+            background: transparent !important;
             padding: 1rem 1.5rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            border-bottom: 1px solid #E4E6EB;
+            box-shadow: none;
+            border-bottom: none;
             position: sticky;
             top: 0;
             z-index: 100;
+            transition: background 0.8s ease, box-shadow 0.8s ease, border-bottom 0.8s ease;
         }
 
         .back-btn {
@@ -132,26 +135,35 @@ This project primarily aligns with SDG 10 – Reduced Inequalities, emphasizing 
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #050505;
+            color: var(--text-color, #050505);
             text-decoration: none;
             border-radius: 50%;
-            transition: background 0.2s ease;
+            transition: background 0.2s ease, color 0.8s ease;
         }
 
         .back-btn:hover {
             background: #F0F2F5;
         }
+        
+        .night-theme .back-btn:hover {
+            background: #1A345B;
+        }
 
         .back-btn:active {
             background: #E4E6EB;
+        }
+        
+        .night-theme .back-btn:active {
+            background: #14284A;
         }
 
         .app-title {
             font-size: 1.25rem;
             font-weight: 700;
-            color: #050505;
+            color: var(--title-color, #050505);
             flex: 1;
             text-align: center;
+            transition: color 0.8s ease;
         }
 
         .header-spacer {
@@ -163,6 +175,8 @@ This project primarily aligns with SDG 10 – Reduced Inequalities, emphasizing 
             max-width: 480px;
             margin: 0 auto;
             padding-bottom: 3rem;
+            position: relative;
+            z-index: 1;
         }
 
         .about-hero {
@@ -205,13 +219,16 @@ This project primarily aligns with SDG 10 – Reduced Inequalities, emphasizing 
         }
 
         .info-card {
-            background: #FFFFFF;
+            background: var(--card-bg, #FFFFFF);
             border-radius: 8px;
             padding: 1.5rem;
             margin-bottom: 0.75rem;
-            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+            box-shadow: var(--card-shadow, 0 1px 2px rgba(0, 0, 0, 0.1));
             animation: fadeInUp 0.6s ease-out;
             animation-fill-mode: both;
+            transition: background 0.8s ease, box-shadow 0.8s ease;
+            position: relative;
+            z-index: 1;
         }
 
         .info-card:nth-child(2) {
@@ -233,14 +250,16 @@ This project primarily aligns with SDG 10 – Reduced Inequalities, emphasizing 
         .section-title {
             font-size: 1.25rem;
             font-weight: 600;
-            color: #050505;
+            color: var(--text-color, #050505);
             margin-bottom: 1rem;
+            transition: color 0.8s ease;
         }
 
         .section-text {
             font-size: 1rem;
             line-height: 1.6;
-            color: #65676B;
+            color: var(--text-color, #65676B);
+            transition: color 0.8s ease;
         }
 
         .feature-list {
@@ -264,8 +283,9 @@ This project primarily aligns with SDG 10 – Reduced Inequalities, emphasizing 
         .feature-item h4 {
             font-size: 1.1rem;
             font-weight: 600;
-            color: #050505;
+            color: var(--text-color, #050505);
             margin-bottom: 0.25rem;
+            transition: color 0.8s ease;
         }
 
         .feature-item p {
@@ -484,7 +504,205 @@ This project primarily aligns with SDG 10 – Reduced Inequalities, emphasizing 
                 font-size: 1.05rem;
             }
         }
+
+        /* ------------------------------------------------ */
+        /* --- THEME STYLES --- */
+        /* ------------------------------------------------ */
+        
+        /* 1. MORNING (SUNNY) THEME: Sunny/Yellow-Orange */
+        .sunny-theme {
+            --body-bg: #FFE0B2;
+            --header-bg: #FFCC80;
+            --title-color: #E65100;
+            --card-bg: #FFFFFF;
+            --card-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+            --text-color: #050505;
+        }
+
+        /* 2. AFTERNOON (BLUE CLOUDY) THEME: Light Blue */
+        .afternoon-theme {
+            --body-bg: #E0F7FA;
+            --header-bg: #B3E5FC;
+            --title-color: #01579B;
+            --card-bg: #FFFFFF;
+            --card-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+            --text-color: #050505;
+        }
+
+        /* 3. NIGHT (DARK BLUE MOON/STARS) THEME */
+        .night-theme {
+            --body-bg: #0D1C3C;
+            --header-bg: #14284A;
+            --title-color: #B0C4DE;
+            --card-bg: #1A345B;
+            --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+            --text-color: #E0E0E0;
+        }
+
+        /* Theme Animation Background */
+        .theme-animation-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            transition: opacity 0.8s ease;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        /* Sunny Theme - Animated Sun */
+        .sunny-theme .theme-animation-bg {
+            background: linear-gradient(135deg, #FFB74D 0%, #FFECB3 100%);
+            opacity: 0.4;
+        }
+
+        .sunny-theme .theme-animation-bg::before {
+            content: '';
+            position: absolute;
+            top: 10%;
+            right: 10%;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: #FFEB3B;
+            box-shadow: 0 0 40px #FFD700;
+            animation: pulseSun 4s ease-in-out infinite alternate;
+        }
+
+        @keyframes pulseSun {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.05); }
+        }
+
+        /* Afternoon Theme - Animated Clouds */
+        .afternoon-theme .theme-animation-bg {
+            background: linear-gradient(135deg, #81D4FA 0%, #B3E5FC 100%);
+            opacity: 0.4;
+        }
+
+        .afternoon-theme .theme-animation-bg::before,
+        .afternoon-theme .theme-animation-bg::after {
+            content: '';
+            position: absolute;
+            background: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            box-shadow:
+                60px -10px 0 10px white,
+                -20px 20px 0 15px white,
+                40px 40px 0 20px white;
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
+            animation: moveClouds 20s linear infinite;
+        }
+
+        .afternoon-theme .theme-animation-bg::before {
+            top: 20%;
+            left: -100px;
+            transform: scale(1.1);
+            animation-duration: 22s;
+            --scale: 1.1;
+        }
+
+        .afternoon-theme .theme-animation-bg::after {
+            top: 65%;
+            left: -150px;
+            transform: scale(0.7);
+            animation-duration: 18s;
+            --scale: 0.7;
+        }
+
+        @keyframes moveClouds {
+            0% { transform: translateX(-100%) scale(var(--scale, 1)); }
+            100% { transform: translateX(300%) scale(var(--scale, 1)); }
+        }
+
+        /* Night Theme - Animated Moon and Stars */
+        .night-theme .theme-animation-bg {
+            background: linear-gradient(135deg, #0A193F 0%, #1A3F70 100%);
+            opacity: 0.6;
+        }
+
+        .night-theme .theme-animation-bg::before {
+            content: '';
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: #F0E68C;
+            box-shadow: 0 0 15px rgba(255, 255, 200, 0.8);
+            animation: floatMoon 6s ease-in-out infinite alternate;
+            z-index: 2;
+        }
+
+        .night-theme .theme-animation-bg::after {
+            content: '';
+            position: absolute;
+            background: #FFFFFF;
+            width: 2px;
+            height: 2px;
+            border-radius: 50%;
+            box-shadow:
+                40px 60px 0 0.5px #fff,
+                80px 10px 0 1px #fff,
+                100px 80px 0 0.5px #fff,
+                10px 90px 0 1px #fff;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 0;
+            animation: twinkle 4s ease-in-out infinite;
+        }
+
+        @keyframes floatMoon {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(5px); }
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
     </style>
+
+    <script>
+        // Theme Management based on Philippine Time
+        function applyTheme() {
+            let body = document.body;
+
+            // Force Philippine Time (UTC+8)
+            const now = new Date();
+            const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
+            const philTime = new Date(utc + (8 * 60 * 60 * 1000));
+
+            let hour = philTime.getHours();
+            let themeClass = "";
+
+            // 1. Morning (Sunny Theme): 5:00 AM - 11:59 AM
+            if (hour >= 5 && hour < 12) {
+                themeClass = "sunny-theme";
+            // 2. Afternoon (Blue Cloudy Theme): 12:00 PM - 4:59 PM
+            } else if (hour >= 12 && hour < 17) {
+                themeClass = "afternoon-theme";
+            // 3. Night (Dark Blue Moon/Stars Theme): 5:00 PM - 4:59 AM
+            } else {
+                themeClass = "night-theme";
+            }
+
+            // Apply theme class to the body
+            body.className = themeClass;
+        }
+
+        // Run on load
+        applyTheme();
+
+        // Update theme every minute
+        setInterval(applyTheme, 60000);
+    </script>
 </body>
 
 </html>
