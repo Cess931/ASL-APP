@@ -8,15 +8,18 @@
 </head>
 
 <body>
-    <header class="app-header">
-        <h1 class="app-title">Basic ASL App</h1>
-        <button class="menu-btn" aria-label="Menu">
 
-        </button>
+    <header class="app-header">
+        <div class="app-title">Signey App</div>
+        <a href="index.html" class="logout-link" aria-label="Logout">
+            <span class="material-symbols-outlined logout-icon">logout</span>
+        </a>
     </header>
 
     <main class="main-content">
         <section class="welcome-section">
+            <div class="theme-animation-bg">
+                </div>
             <div class="illustration">
                 <img src="hi5.png" alt="Welcome illustration" class="avatar" />
             </div>
@@ -29,6 +32,7 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
 
         <section class="navigation-grid">
+
             <a href="learn.html" class="nav-card">
                 <div class="card-icon material-symbols-outlined">menu_book</div>
                 <h3>Learn</h3>
@@ -53,8 +57,7 @@
     </main>
 
     <style>
-    
-
+        /* --- General Styles (Kept largely the same) --- */
         * {
             margin: 0;
             padding: 0;
@@ -63,9 +66,13 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: #F0F2F5;
+            background: var(--body-bg, #F0F2F5);
+            /* Use CSS Variable for dynamic BG */
             min-height: 100vh;
-            color: #050505;
+            color: var(--text-color, #050505);
+            /* Use CSS Variable for dynamic Text Color */
+            transition: background 0.8s ease, color 0.8s ease;
+            /* Smooth transition */
         }
 
         .material-symbols-outlined {
@@ -74,7 +81,8 @@
         }
 
         .app-header {
-            background: #FFFFFF;
+            background: #FFFFFF !important;
+            /* Force header white */
             padding: 1rem 1.5rem;
             display: flex;
             justify-content: space-between;
@@ -84,68 +92,35 @@
             position: sticky;
             top: 0;
             z-index: 100;
+            transition: background 0.8s ease, box-shadow 0.8s ease, border-bottom 0.8s ease;
         }
 
-        .back-btn {
-            background: none;
-            border: none;
-            cursor: pointer;
-            padding: 0.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #050505;
-            text-decoration: none;
-            border-radius: 50%;
-            transition: background 0.2s ease;
-        }
-
-        .back-btn:hover {
-            background: #F0F2F5;
-        }
-
-        .back-btn:active {
-            background: #E4E6EB;
-        }
 
         .app-title {
             font-size: 1.25rem;
             font-weight: 700;
-            color: #050505;
+            color: var(--title-color, #050505);
             flex: 1;
-            text-align: center;
+            text-align: left;
+            transition: color 0.8s ease;
         }
 
-        .header-spacer {
-            width: 40px;
-        }
-
-        .menu-btn {
-            background: none;
-            border: none;
-            cursor: pointer;
+        .logout-link {
+            text-decoration: none;
+            color: var(--text-color, #050505);
             display: flex;
-            flex-direction: column;
-            gap: 4px;
-            padding: 5px;
-            transition: transform 0.2s ease;
+            align-items: center;
+            padding: 0 0.5rem;
+            transition: opacity 0.3s ease;
         }
 
-        .menu-btn:hover {
-            transform: scale(1.1);
-        }
-
-        .menu-btn:active {
-            transform: scale(0.95);
+        .logout-link:hover {
             opacity: 0.7;
         }
 
-        .menu-btn span {
-            width: 5px;
-            height: 5px;
-            background: #65676B;
-            border-radius: 50%;
-            transition: all 0.3s ease;
+        .logout-icon {
+            font-size: 28px !important;
+            font-weight: 500 !important;
         }
 
         .main-content {
@@ -154,16 +129,262 @@
             margin: 0 auto;
         }
 
+
         .welcome-section {
-            background: #FFFFFF;
+            background: var(--card-bg, #FFFFFF);
+            /* Dynamic BG */
             border-radius: 8px;
             padding: 1.5rem;
             margin-bottom: 1rem;
             display: flex;
             align-items: center;
             gap: 1.5rem;
-            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+            box-shadow: var(--card-shadow, 0 1px 2px rgba(0, 0, 0, 0.1));
             animation: fadeInUp 0.6s ease-out;
+            position: relative;
+            /* Needed for absolute positioning of theme-animation-bg */
+            overflow: hidden;
+            /* Keep animations inside the section */
+            transition: background 0.8s ease, box-shadow 0.8s ease;
+        }
+
+        /* --- Theme Animation Background --- */
+        .theme-animation-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            /* Behind other content */
+            transition: opacity 0.8s ease;
+            pointer-events: none;
+            /* Allows clicks on elements beneath it */
+        }
+
+        /* ------------------------------------------------ */
+        /* --- 1. MORNING (SUNNY) THEME: Sunny/Yellow-Orange --- */
+        /* ------------------------------------------------ */
+        .sunny-theme {
+            --body-bg: #FFE0B2;
+            /* Light Peach/Orange */
+            --header-bg: #FFCC80;
+            --title-color: #E65100;
+            /* Dark Orange Title */
+            --card-bg: #FFFFFF;
+            --card-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+            --text-color: #050505;
+            /* Dark text on light background */
+        }
+
+        .sunny-theme .theme-animation-bg {
+            background: linear-gradient(135deg, #FFB74D 0%, #FFECB3 100%);
+            /* Orange to Yellow */
+            opacity: 1;
+        }
+
+        /* --- Sun Animation (Using the same cloud pattern structure for simplicity) --- */
+        .sunny-theme .theme-animation-bg::before {
+            content: '';
+            position: absolute;
+            top: 10%;
+            right: 10%;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: #FFEB3B;
+            /* Yellow sun */
+            box-shadow: 0 0 40px #FFD700;
+            /* Glow */
+            animation: pulseSun 4s ease-in-out infinite alternate;
+        }
+
+        @keyframes pulseSun {
+            0% {
+                transform: scale(1);
+            }
+
+            100% {
+                transform: scale(1.05);
+            }
+        }
+
+        /* ------------------------------------------------ */
+        /* --- 2. AFTERNOON (BLUE CLOUDY) THEME: Light Blue --- */
+        /* ------------------------------------------------ */
+        .afternoon-theme {
+            --body-bg: #E0F7FA;
+            /* Light Cyan */
+            --header-bg: #B3E5FC;
+            /* Light Blue */
+            --title-color: #01579B;
+            /* Dark Blue Title */
+            --card-bg: #FFFFFF;
+            --card-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+            --text-color: #050505;
+        }
+
+        .afternoon-theme .theme-animation-bg {
+            background: linear-gradient(135deg, #81D4FA 0%, #B3E5FC 100%);
+            /* Medium Blue to Light Blue */
+            opacity: 1;
+        }
+
+        /* --- Puffy Clouds CSS (repurposed from your original code) --- */
+        .afternoon-theme .theme-animation-bg::before,
+        .afternoon-theme .theme-animation-bg::after {
+            content: '';
+            position: absolute;
+            background: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            box-shadow:
+                60px -10px 0 10px white,
+                /* Top Right Puff */
+                -20px 20px 0 15px white,
+                /* Bottom Left Puff */
+                40px 40px 0 20px white;
+            /* Bottom Right Puff */
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
+            animation: moveClouds 20s linear infinite;
+        }
+
+        .afternoon-theme .theme-animation-bg::before {
+            top: 20%;
+            left: -100px;
+            transform: scale(1.1);
+            animation-duration: 22s;
+            --scale: 1.1;
+        }
+
+        .afternoon-theme .theme-animation-bg::after {
+            top: 65%;
+            left: -150px;
+            transform: scale(0.7);
+            animation-duration: 18s;
+            --scale: 0.7;
+        }
+
+        @keyframes moveClouds {
+            0% {
+                transform: translateX(-100%) scale(var(--scale, 1));
+            }
+
+            100% {
+                transform: translateX(300%) scale(var(--scale, 1));
+            }
+        }
+
+        /* ------------------------------------------------ */
+        /* --- 3. NIGHT (DARK BLUE MOON/STARS) THEME --- */
+        /* ------------------------------------------------ */
+        .night-theme {
+            --body-bg: #0D1C3C;
+            /* Dark Blue */
+            --header-bg: #14284A;
+            /* Darker Blue */
+            --title-color: #B0C4DE;
+            /* Light Steel Blue Title */
+            --card-bg: #1A345B;
+            /* Slightly Lighter Dark Blue Card */
+            --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+            --text-color: #E0E0E0;
+        }
+
+        .night-theme .app-header {
+            border-bottom: 1px solid #284473;
+        }
+
+        .night-theme .theme-animation-bg {
+            background: linear-gradient(135deg, #0A193F 0%, #1A3F70 100%);
+            /* Darkest Blue to Dark Blue */
+            opacity: 1;
+        }
+
+        .night-theme .app-title,
+        .night-theme .logout-link {
+            color: var(--title-color);
+        }
+
+        .night-theme .greeting p {
+            --subtext-color: #B0B3B8;
+        }
+
+        /* --- Animated Moon (using ::before) --- */
+        .night-theme .theme-animation-bg::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: #F0E68C;
+            /* Pale Goldenrod Moon */
+            box-shadow: 0 0 15px rgba(255, 255, 200, 0.8);
+            /* Soft glow */
+            animation: floatMoon 6s ease-in-out infinite alternate;
+            z-index: 1;
+        }
+
+        /* --- Subtle Stars for Night (using ::after) --- */
+        .night-theme .theme-animation-bg::after {
+            content: '';
+            position: absolute;
+            background: #FFFFFF;
+            width: 2px;
+            height: 2px;
+            border-radius: 50%;
+            /* Creating multiple stars using box-shadow */
+            box-shadow:
+                40px 60px 0 0.5px #fff,
+                /* Star 1 */
+                80px 10px 0 1px #fff,
+                /* Star 2 */
+                100px 80px 0 0.5px #fff,
+                /* Star 3 */
+                10px 90px 0 1px #fff;
+            /* Star 4 */
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 0;
+            /* No base element, just shadows */
+            animation: twinkle 4s ease-in-out infinite;
+            /* Twinkle animation on the stars */
+        }
+
+        @keyframes floatMoon {
+            0% {
+                transform: translateY(0);
+            }
+
+            100% {
+                transform: translateY(5px);
+            }
+        }
+
+        @keyframes twinkle {
+            0%, 100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.5;
+            }
+        }
+        /* ------------------------------------------------ */
+        /* --- END OF THEME STYLES --- */
+        /* ------------------------------------------------ */
+
+
+        /* General styles (kept largely the same) */
+        .illustration {
+            flex-shrink: 0;
+            animation: float 3s ease-in-out infinite;
+            position: relative;
+            z-index: 1;
         }
 
         @keyframes fadeInUp {
@@ -178,13 +399,7 @@
             }
         }
 
-        .illustration {
-            flex-shrink: 0;
-            animation: float 3s ease-in-out infinite;
-        }
-
         @keyframes float {
-
             0%,
             100% {
                 transform: translateY(0);
@@ -200,18 +415,31 @@
             height: 160px;
         }
 
+        .greeting {
+            position: relative;
+            z-index: 1;
+        }
+
         .greeting h2 {
             font-size: 1.5rem;
             font-weight: 600;
-            color: #050505;
+            color: var(--text-color, #050505);
             margin-bottom: 0.25rem;
+            transition: color 0.8s ease;
         }
 
         .greeting p {
             font-size: 1.1rem;
-            color: #65676B;
+            color: var(--subtext-color, #65676B);
             font-weight: 400;
+            transition: color 0.8s ease;
         }
+
+        /* Apply dynamic color to subtext in dark themes */
+        .night-theme .greeting p {
+            --subtext-color: #B0B3B8;
+        }
+
 
         .navigation-grid {
             display: grid;
@@ -220,147 +448,42 @@
         }
 
         .nav-card {
-            background: #FFFFFF;
+            background: var(--card-bg, #FFFFFF);
             border-radius: 8px;
             padding: 3rem 1.5rem;
             text-decoration: none;
-            color: #050505;
+            color: var(--text-color, #050505);
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             text-align: center;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+            box-shadow: var(--card-shadow, 0 1px 2px rgba(0, 0, 0, 0.1));
             position: relative;
             overflow: hidden;
         }
 
-        .nav-card::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            border-radius: 50%;
-            background: rgba(0, 0, 0, 0.05);
-            transform: translate(-50%, -50%);
-            transition: width 0.6s, height 0.6s;
+        /* Adjust hover/active states for dark themes */
+        .night-theme .nav-card:hover {
+            background: #23457A;
         }
 
-        .nav-card:nth-child(1) {
-            background: #FFFFFF;
-            color: #050505;
+        .night-theme .nav-card:active {
+            background: #1F385B;
+        }
+        
+        /* Adjust hover/active states for afternoon theme */
+        .afternoon-theme .nav-card:hover {
+            background: #F0F0F0;
         }
 
-        .nav-card:nth-child(1) h3 {
-            color: #050505;
+        .afternoon-theme .nav-card:active {
+            background: #E5E5E5;
         }
 
-        .nav-card:nth-child(1):hover {
-            background: #F0F2F5;
-        }
 
-        .nav-card:nth-child(2) {
-            background: #FFFFFF;
-            color: #050505;
-        }
-
-        .nav-card:nth-child(2) h3 {
-            color: #050505;
-        }
-
-        .nav-card:nth-child(2):hover {
-            background: #F0F2F5;
-        }
-
-        .nav-card:nth-child(3) {
-            background: #FFFFFF;
-            color: #050505;
-        }
-
-        .nav-card:nth-child(3) h3 {
-            color: #050505;
-        }
-
-        .nav-card:nth-child(3):hover {
-            background: #F0F2F5;
-        }
-
-        .nav-card:nth-child(4) {
-            background: #FFFFFF;
-            color: #050505;
-        }
-
-        .nav-card:nth-child(4) h3 {
-            color: #050505;
-        }
-
-        .nav-card:nth-child(4):hover {
-            background: #F0F2F5;
-        }
-
-        .nav-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
-        }
-
-        .nav-card:active {
-            transform: scale(0.98);
-            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-        }
-
-        .nav-card:active::before {
-            width: 300px;
-            height: 300px;
-        }
-
-        .nav-card:nth-child(1):active {
-            background: #E4E6EB;
-        }
-
-        .nav-card:nth-child(2):active {
-            background: #E4E6EB;
-        }
-
-        .nav-card:nth-child(3):active {
-            background: #E4E6EB;
-        }
-
-        .nav-card:nth-child(4):active {
-            background: #E4E6EB;
-        }
-
-        .card-icon {
-            font-size: 2.5rem;
-            margin-bottom: 0.75rem;
-            transition: transform 0.3s ease;
-            position: relative;
-            z-index: 1;
-        }
-
-        .nav-card:hover .card-icon {
-            transform: scale(1.15) rotate(5deg);
-        }
-
-        .nav-card:active .card-icon {
-            transform: scale(0.9);
-        }
-
-        .nav-card h3 {
-            font-size: 1.25rem;
-            font-weight: 600;
-            color: #050505;
-            transition: transform 0.3s ease;
-            position: relative;
-            z-index: 1;
-        }
-
-        .nav-card:hover h3 {
-            transform: scale(1.05);
-        }
-
+        /* ... (Your existing media queries) ... */
         @media (max-width: 768px) {
             .main-content {
                 padding: 1.25rem;
@@ -373,6 +496,10 @@
             .avatar {
                 width: 130px;
                 height: 150px;
+            }
+
+            .app-title {
+                text-align: left;
             }
         }
 
@@ -392,21 +519,21 @@
             .welcome-section {
                 padding: 1.125rem;
                 gap: 1rem;
-                flex-direction: column;
-                text-align: center;
+                flex-direction: row;
+                text-align: left;
             }
 
             .avatar {
-                width: 110px;
-                height: 130px;
+                width: 100px;
+                height: 120px;
             }
 
             .greeting h2 {
-                font-size: 1.25rem;
+                font-size: 1.2rem;
             }
 
             .greeting p {
-                font-size: 1rem;
+                font-size: 0.95rem;
             }
 
             .navigation-grid {
@@ -427,132 +554,109 @@
             }
         }
 
-        @media (max-width: 360px) {
-            .app-title {
-                font-size: 1rem;
-            }
-
-            .main-content {
-                padding: 0.875rem 0.75rem;
-            }
-
-            .welcome-section {
-                padding: 1rem;
-                gap: 0.875rem;
-            }
-
-            .avatar {
-                width: 100px;
-                height: 120px;
-            }
-
-            .greeting h2 {
-                font-size: 1.15rem;
-            }
-
-            .greeting p {
-                font-size: 0.95rem;
-            }
-
-            .navigation-grid {
-                gap: 0.625rem;
-            }
-
-            .nav-card {
-                padding: 2rem 0.875rem;
-                min-height: 130px;
-            }
-
-            .card-icon {
-                font-size: 2rem;
-                margin-bottom: 0.625rem;
-            }
-
-            .nav-card h3 {
-                font-size: 1rem;
-            }
-        }
-
         @media (min-width: 769px) {
             .main-content {
                 max-width: 600px;
                 padding: 2rem 1.5rem;
             }
-
-            .welcome-section {
-                padding: 2rem;
-            }
-
-            .avatar {
-                width: 160px;
-                height: 180px;
-            }
-
-            .greeting h2 {
-                font-size: 1.75rem;
-            }
-
-            .greeting p {
-                font-size: 1.25rem;
-            }
-
-            .navigation-grid {
-                gap: 1.25rem;
-            }
-
-            .nav-card {
-                padding: 3.5rem 2rem;
-            }
-
-            .card-icon {
-                font-size: 3rem;
-            }
-
-            .nav-card h3 {
-                font-size: 1.4rem;
-            }
         }
 
-        @media (max-width: 768px) {
-            .welcome-section {
-                flex-direction: row;
-                justify-content: flex-start;
-            }
-
-            .illustration {
-                flex-shrink: 0;
-            }
-
-            .greeting {
-                flex: 1;
-            }
+        /* Existing nav-card hover/active styles */
+        .nav-card::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(0, 0, 0, 0.05);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
         }
 
-        @media (max-width: 480px) {
-            .welcome-section {
-                flex-direction: row;
-                align-items: center;
-                gap: 1rem;
-            }
+        .nav-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+        }
 
-            .illustration {
-                flex-shrink: 0;
-            }
+        .nav-card:active {
+            transform: scale(0.98);
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        }
 
-            .avatar {
-                width: 100px;
-                height: 120px;
-            }
+        .card-icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.75rem;
+            transition: transform 0.3s ease;
+            position: relative;
+            z-index: 1;
+            color: var(--text-color);
+        }
 
-            .greeting h2 {
-                font-size: 1.2rem;
-            }
-
-            .greeting p {
-                font-size: 0.95rem;
-            }
+        .nav-card h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-color);
+            transition: transform 0.3s ease;
+            position: relative;
+            z-index: 1;
         }
     </style>
+
+    <script>
+        function updateGreetingAndTheme() {
+            let body = document.body;
+            let greetingText = document.querySelector(".greeting p");
+
+            // Force Philippine Time (UTC+8)
+            const now = new Date();
+            const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
+            // UTC + (8 hours * 60 minutes * 60 seconds * 1000 ms)
+            const philTime = new Date(utc + (8 * 60 * 60 * 1000));
+
+            let hour = philTime.getHours();
+            let greeting = "";
+            let themeClass = "";
+
+            // --- Theme Logic for Philippine Time (UTC+8) ---
+
+            // 1. Morning (Sunny Theme): 5:00 AM - 11:59 AM
+            if (hour >= 5 && hour < 12) {
+                greeting = "Good morning!";
+                themeClass = "sunny-theme";
+
+            // 2. Afternoon (Blue Cloudy Theme): 12:00 PM - 4:59 PM (12:00 - 16:59)
+            } else if (hour >= 12 && hour < 17) {
+                greeting = "Good afternoon!";
+                themeClass = "afternoon-theme";
+
+            // 3. Night (Dark Blue Moon/Stars Theme): 5:00 PM - 4:59 AM
+            } else {
+                // 5:00 PM - 8:59 PM (Good evening)
+                if (hour >= 17 && hour < 21) {
+                    greeting = "Good evening!";
+                // 9:00 PM - 4:59 AM (Good night)
+                } else {
+                    greeting = "Good night!";
+                }
+                themeClass = "night-theme";
+            }
+
+            // Update greeting text
+            greetingText.textContent = greeting;
+
+            // Apply theme class to the body, replacing any existing theme class
+            body.className = themeClass;
+        }
+
+        // Run on load
+        updateGreetingAndTheme();
+
+        // Optional: Update the theme/greeting every minute
+        setInterval(updateGreetingAndTheme, 60000);
+    </script>
+
 </body>
 
 </html>
