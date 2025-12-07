@@ -10,11 +10,15 @@
 <body>
 
     <header class="app-header">
+    <div class="header-left">
+        <span class="material-symbols-outlined logo-icon">sign_language</span>
         <div class="app-title">Signey App</div>
-        <a href="index.html" class="logout-link" aria-label="Logout">
-            <span class="material-symbols-outlined logout-icon">logout</span>
-        </a>
-    </header>
+    </div>
+    <a href="index.html" class="logout-link" aria-label="Logout">
+        <span class="material-symbols-outlined logout-icon">logout</span>
+    </a>
+</header>
+
 
     <main class="main-content">
         <section class="welcome-section">
@@ -24,8 +28,8 @@
                 <img src="hi5.png" alt="Welcome illustration" class="avatar" />
             </div>
             <div class="greeting">
-                <h2>Hello, user.</h2>
-                <p>Good day!</p>
+                <h2 id="greeting-name">Hello, user.</h2> 
+                <p id="greeting-time">Good day!</p> 
             </div>
         </section>
 
@@ -63,6 +67,17 @@
             padding: 0;
             box-sizing: border-box;
         }
+
+        .header-left {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem; /* spacing between icon and title */
+}
+
+.logo-icon {
+    font-size: 32px;
+    color: #1877F2; /* or your preferred logo color */
+}
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
@@ -607,7 +622,16 @@
     <script>
         function updateGreetingAndTheme() {
             let body = document.body;
-            let greetingText = document.querySelector(".greeting p");
+            let greetingTimeText = document.getElementById("greeting-time");
+            let greetingNameElement = document.getElementById("greeting-name");
+
+            // 1. Get User Name from localStorage
+            // Capitalize the first letter of the stored name for better presentation
+            let storedName = localStorage.getItem('userName') || 'user';
+            storedName = storedName.charAt(0).toUpperCase() + storedName.slice(1).toLowerCase();
+
+            // Update the greeting with the name
+            greetingNameElement.textContent = `Hello, ${storedName}.`; 
 
             // Force Philippine Time (UTC+8)
             const now = new Date();
@@ -643,8 +667,8 @@
                 themeClass = "night-theme";
             }
 
-            // Update greeting text
-            greetingText.textContent = greeting;
+            // Update greeting time text
+            greetingTimeText.textContent = greeting;
 
             // Apply theme class to the body, replacing any existing theme class
             body.className = themeClass;
