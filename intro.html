@@ -96,14 +96,13 @@
         }
 
         .app-header {
-            background: #FFFFFF !important;
-            /* Force header white */
+            background: transparent !important;
             padding: 1rem 1.5rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            border-bottom: 1px solid #E4E6EB;
+            box-shadow: none;
+            border-bottom: none;
             position: sticky;
             top: 0;
             z-index: 100;
@@ -305,10 +304,6 @@
             /* Slightly Lighter Dark Blue Card */
             --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
             --text-color: #E0E0E0;
-        }
-
-        .night-theme .app-header {
-            border-bottom: 1px solid #284473;
         }
 
         .night-theme .theme-animation-bg {
@@ -659,10 +654,10 @@
             } else {
                 // 5:00 PM - 8:59 PM (Good evening)
                 if (hour >= 17 && hour < 21) {
-                    greeting = "Good evening!";
+                    greeting = "Good Evening!";
                 // 9:00 PM - 4:59 AM (Good night)
                 } else {
-                    greeting = "Good night!";
+                    greeting = "Good Evening!";
                 }
                 themeClass = "night-theme";
             }
