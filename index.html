@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Signey App</title>
 
-    <!-- FIXED MATERIAL SYMBOLS OUTLINED (INCLUDES HAND ICON) -->
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:FILL@1" rel="stylesheet">
 
     <style>
@@ -169,6 +168,77 @@
             border: none;
         }
     }
+    
+    /* --- Custom Modal Styles --- */
+    .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+
+    .modal-overlay.active {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .modal-content {
+        background: #ffffff;
+        padding: 24px;
+        border-radius: 12px;
+        width: 90%;
+        max-width: 350px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        text-align: center;
+        transform: scale(0.95);
+        transition: transform 0.3s ease;
+    }
+
+    .modal-overlay.active .modal-content {
+        transform: scale(1);
+    }
+
+    .modal-content h3 {
+        margin-bottom: 16px;
+        font-size: 20px;
+        color: #1c1e21;
+    }
+
+    .modal-content input[type="text"] {
+        width: 100%;
+        padding: 12px;
+        margin-bottom: 16px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        font-size: 16px;
+    }
+
+    .modal-content button {
+        width: 100%;
+        padding: 12px;
+        background: #1877f2;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background 0.3s ease;
+    }
+
+    .modal-content button:hover {
+        background: #166fe5;
+    }
+    /* --- End Custom Modal Styles --- */
     </style>
 
 </head>
@@ -183,7 +253,6 @@
 
         <div class="onboarding-content" id="onboardingContent">
 
-            <!-- Slide 1 -->
             <div class="slide">
                 <div class="illustration">
                     <span class="material-symbols-outlined" style="font-size:130px; color:#1877F2;">
@@ -205,7 +274,6 @@
                 <button class="next-btn" onclick="nextSlide()">Next</button>
             </div>
 
-            <!-- Slide 2 -->
             <div class="slide">
                 <div class="illustration">
                     <svg viewBox="0 0 280 280" fill="none">
@@ -227,14 +295,13 @@
 
                 <div class="pagination">
                     <div class="dot"></div>
-                    <div class="dot"></div>
+                    <div class="dot active"></div>
                     <div class="dot"></div>
                 </div>
 
                 <button class="next-btn" onclick="nextSlide()">Next</button>
             </div>
 
-            <!-- Slide 3 -->
             <div class="slide">
                 <div class="illustration">
                     <svg viewBox="0 0 280 280" fill="none">
@@ -266,7 +333,14 @@
         </div>
     </div>
 
-    <!-- SIGNEY BLUE POPUP -->
+    <div class="modal-overlay" id="nameModal">
+        <div class="modal-content">
+            <h3>What's your name?</h3>
+            <input type="text" id="nameInput" placeholder="Enter your name">
+            <button onclick="saveNameAndNavigate()">Continue</button>
+        </div>
+    </div>
+
     <div id="signeyBluePopup"
         style="
             position: fixed;
@@ -288,24 +362,27 @@
 
     </div>
 
+    
     <style>
     @keyframes fadeIn { from {opacity:0;} to {opacity:1;} }
     @keyframes fadeOut { from {opacity:1;} to {opacity:0;} }
     </style>
 
     <script>
+        // Splash Screen Logic
         setTimeout(() => {
             const popup = document.getElementById('signeyBluePopup');
             popup.style.animation = "fadeOut 0.6s ease forwards";
             setTimeout(() => popup.style.display = "none", 600);
         }, 1200);
-    </script>
 
-    <script>
+        // Onboarding Logic
         let currentSlide = 0;
         const totalSlides = 3;
         const content = document.getElementById('onboardingContent');
         const slides = document.querySelectorAll('.slide');
+        const nameModal = document.getElementById('nameModal');
+        const nameInput = document.getElementById('nameInput');
 
         function updateSlide() {
             content.style.transform = `translateX(-${currentSlide * 100}%)`;
@@ -324,15 +401,39 @@
             }
         }
 
-        function skipOnboarding() {
+        function showNameModal() {
+            nameModal.classList.add('active');
+            nameInput.focus();
+        }
+
+        function saveNameAndNavigate() {
+            const userName = nameInput.value.trim();
+            
+            if (userName === '') {
+                // HINDI MANENEXT ITO KAPAG WALANG PANGALAN NA NILAGAY SI USER.
+                alert("Please enter your name to continue."); 
+                // Note: Gumamit ng alert dito para sa validation error, pero kung striktong ayaw mo ng alert,
+                // pwede itong palitan ng mas subtle na visual indicator/error message sa ilalim ng input field.
+                return;
+            }
+            
+            // Save the name to localStorage
+            localStorage.setItem('userName', userName);
+
+            // Hide the modal and navigate
+            nameModal.classList.remove('active');
             window.location.href = 'intro.html';
+        }
+
+        function skipOnboarding() {
+            showNameModal();
         }
 
         function getStarted() {
-            window.location.href = 'intro.html';
+            showNameModal();
         }
 
-        // Swipe
+        // Swipe logic (kept the same)
         let touchStartX = 0;
         content.addEventListener('touchstart', e => {
             touchStartX = e.touches[0].clientX;
@@ -352,7 +453,7 @@
             }
         });
 
-        // Dot click
+        // Dot click (kept the same)
         slides.forEach((slide, slideIndex) => {
             const dots = slide.querySelectorAll('.dot');
             dots.forEach((dot, dotIndex) => {
