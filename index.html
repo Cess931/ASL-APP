@@ -4,7 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ASL App Onboarding</title>
+    <title>Signey App</title>
+
+    <!-- FIXED MATERIAL SYMBOLS OUTLINED (INCLUDES HAND ICON) -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:FILL@1" rel="stylesheet">
+
     <style>
     * {
         margin: 0;
@@ -22,9 +26,7 @@
         padding: 20px;
     }
 
-
-    html,
-    body {
+    html, body {
         overflow: hidden;
         height: 100%;
     }
@@ -66,28 +68,23 @@
     }
 
     .slide {
-    min-width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start; /* stack content from top */
-    padding: 10px 30px 30px;
-    position: relative;
-}
+        min-width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 10px 30px 30px;
+        position: relative;
+    }
 
     .illustration {
         flex: none;
-        /* prevents stretching */
         display: flex;
         align-items: center;
-        /* center vertically inside its container */
         justify-content: center;
         margin-top: 20px;
-        /* adjust spacing above illustration */
         margin-bottom: 10px;
-        /* reduce spacing below illustration */
     }
-
 
     .illustration svg {
         width: 280px;
@@ -96,8 +93,7 @@
 
     .content-text {
         text-align: center;
-        margin: 0 0 20px 0;
-        /* remove top margin, keep bottom margin */
+        margin-bottom: 20px;
     }
 
     .content-text h1 {
@@ -116,14 +112,10 @@
         margin: 0 auto;
     }
 
-    /* Wrap the pagination and button elements in an 'actions-container' div
-       in your HTML for a better grouping/layout, but for CSS-only
-       changes, we can just ensure they sit at the bottom. */
     .pagination {
         display: flex;
         justify-content: center;
         gap: 8px;
-        /* CHANGE: Remove bottom margin here, as it will be managed by the button margin */
         margin-bottom: 0;
     }
 
@@ -142,23 +134,22 @@
         background: #1877f2;
     }
 
-
     .next-btn,
-.start-btn {
-    width: 90%;          /* slightly smaller width for better spacing */
-    padding: 16px;
-    background: #1877f2;
-    color: white;
-    border: none;
-    border-radius: 12px;
-    font-size: 17px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background 0.3s ease;
-    margin-top: 20px;    /* space from pagination dots */
-    position: absolute;
-    bottom: 120px;       /* moved higher from previous 60px */
-}
+    .start-btn {
+        width: 90%;
+        padding: 16px;
+        background: #1877f2;
+        color: white;
+        border: none;
+        border-radius: 12px;
+        font-size: 17px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background 0.3s ease;
+        margin-top: 20px;
+        position: absolute;
+        bottom: 120px;
+    }
 
     .next-btn:hover,
     .start-btn:hover {
@@ -178,10 +169,12 @@
             border: none;
         }
     }
-</style>
+    </style>
+
 </head>
 
 <body>
+
     <div class="phone-container">
         <div class="status-bar">
             <span></span>
@@ -189,28 +182,26 @@
         </div>
 
         <div class="onboarding-content" id="onboardingContent">
+
             <!-- Slide 1 -->
             <div class="slide">
                 <div class="illustration">
-                    <svg viewBox="0 0 280 280" fill="none">
-                        <circle cx="140" cy="140" r="120" fill="#E7F3FF" />
-                        <rect x="80" y="100" width="120" height="140" rx="8" fill="#1877F2" />
-                        <circle cx="140" cy="140" r="30" fill="#fff" />
-                        <path d="M135 145h10v25h-10z" fill="#1877F2" />
-                        <circle cx="140" cy="140" r="8" fill="#1877F2" />
-                        <rect x="100" y="80" width="80" height="12" rx="6" fill="#BDD7F5" />
-                        <rect x="110" y="70" width="60" height="8" rx="4" fill="#BDD7F5" />
-                    </svg>
+                    <span class="material-symbols-outlined" style="font-size:130px; color:#1877F2;">
+                        sign_language
+                    </span>
                 </div>
+
                 <div class="content-text">
-                    <h1>Welcome to ASL App</h1>
+                    <h1>Welcome to Signey App</h1>
                     <p>Where every hand movement creates connection.</p>
                 </div>
+
                 <div class="pagination">
                     <div class="dot active"></div>
                     <div class="dot"></div>
                     <div class="dot"></div>
                 </div>
+
                 <button class="next-btn" onclick="nextSlide()">Next</button>
             </div>
 
@@ -219,8 +210,7 @@
                 <div class="illustration">
                     <svg viewBox="0 0 280 280" fill="none">
                         <circle cx="140" cy="140" r="120" fill="#F0E6FF" />
-                        <rect x="70" y="80" width="140" height="160" rx="12" fill="#fff" stroke="#E4E6EB"
-                            stroke-width="2" />
+                        <rect x="70" y="80" width="140" height="160" rx="12" fill="#fff" stroke="#E4E6EB" stroke-width="2" />
                         <rect x="90" y="100" width="100" height="8" rx="4" fill="#E4E6EB" />
                         <rect x="90" y="115" width="80" height="6" rx="3" fill="#E4E6EB" />
                         <rect x="90" y="126" width="60" height="6" rx="3" fill="#E4E6EB" />
@@ -229,15 +219,18 @@
                         <path d="M185 95l4 4 8-8" stroke="#fff" stroke-width="2" stroke-linecap="round" />
                     </svg>
                 </div>
+
                 <div class="content-text">
                     <h1>Communication is for everyone</h1>
                     <p>Let your hands become your voice.</p>
                 </div>
+
                 <div class="pagination">
                     <div class="dot"></div>
                     <div class="dot"></div>
                     <div class="dot"></div>
                 </div>
+
                 <button class="next-btn" onclick="nextSlide()">Next</button>
             </div>
 
@@ -255,19 +248,58 @@
                         <path d="M195 175v6m0 3v1" stroke="#fff" stroke-width="2" stroke-linecap="round" />
                     </svg>
                 </div>
+
                 <div class="content-text">
                     <h1>Learn ASL and open a world</h1>
                     <p>Where communication has no barriers.</p>
                 </div>
+
                 <div class="pagination">
                     <div class="dot"></div>
                     <div class="dot"></div>
                     <div class="dot"></div>
                 </div>
+
                 <button class="start-btn" onclick="getStarted()">Get Started</button>
             </div>
+
         </div>
     </div>
+
+    <!-- SIGNEY BLUE POPUP -->
+    <div id="signeyBluePopup"
+        style="
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: #1877F2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            z-index: 99999;
+            color: white;
+            letter-spacing: 2px;
+            animation: fadeIn 0.4s ease;
+        ">
+        <span class="material-symbols-outlined" style="font-size:140px; color:white;">
+    sign_language
+</span>
+
+    </div>
+
+    <style>
+    @keyframes fadeIn { from {opacity:0;} to {opacity:1;} }
+    @keyframes fadeOut { from {opacity:1;} to {opacity:0;} }
+    </style>
+
+    <script>
+        setTimeout(() => {
+            const popup = document.getElementById('signeyBluePopup');
+            popup.style.animation = "fadeOut 0.6s ease forwards";
+            setTimeout(() => popup.style.display = "none", 600);
+        }, 1200);
+    </script>
 
     <script>
         let currentSlide = 0;
@@ -293,16 +325,15 @@
         }
 
         function skipOnboarding() {
-            window.location.href = 'intro.html'; // direct navigation
+            window.location.href = 'intro.html';
         }
 
         function getStarted() {
-            window.location.href = 'intro.html'; // direct navigation
+            window.location.href = 'intro.html';
         }
 
-        // Swipe functionality
+        // Swipe
         let touchStartX = 0;
-
         content.addEventListener('touchstart', e => {
             touchStartX = e.touches[0].clientX;
         });
@@ -321,7 +352,7 @@
             }
         });
 
-        // Click dots to jump slides
+        // Dot click
         slides.forEach((slide, slideIndex) => {
             const dots = slide.querySelectorAll('.dot');
             dots.forEach((dot, dotIndex) => {
@@ -332,6 +363,6 @@
             });
         });
     </script>
-</body>
 
+</body>
 </html>
