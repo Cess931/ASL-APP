@@ -903,6 +903,9 @@
                 // Resize GIF thumbnails to match new canvas size
                 updateGifSizes();
 
+                // Play audio of the phrase name when practice starts
+                speak(currentPhrase);
+
                 window.requestAnimationFrame(loop);
             } catch (error) {
                 console.error('Error loading model:', error);
@@ -917,6 +920,9 @@
                 window.requestAnimationFrame(loop);
             }
         }
+
+        let lastCorrectTime = 0;
+        const correctCooldown = 2000; // 2 seconds cooldown between "Correct!" messages
 
         async function predict() {
             // Estimate pose
@@ -946,21 +952,39 @@
             // Draw pose
             drawPose(pose);
 
-            // Check if correct - ONLY speak "Correct!"
+            // Check if person is detected in camera (at least 5 keypoints with good confidence)
+            const minKeypoints = 5;
+            const minKeypointConfidence = 0.5;
+            let detectedKeypoints = 0;
+            if (pose && pose.keypoints) {
+                detectedKeypoints = pose.keypoints.filter(kp => kp.score >= minKeypointConfidence).length;
+            }
+
+            // Only show feedback if person is detected AND prediction is above threshold
             const threshold = 0.7;
-            if (maxPrediction.probability > threshold) {
+            const now = Date.now();
+            
+            if (detectedKeypoints >= minKeypoints && maxPrediction.probability > threshold) {
                 const detectedPhrase = maxPrediction.className.toLowerCase().trim();
                 const targetPhrase = currentPhrase.toLowerCase().trim();
 
                 if (detectedPhrase === targetPhrase) {
-                    document.getElementById('feedback').textContent = '✓ Correct!';
-                    document.getElementById('feedback').className = 'feedback correct';
-                    speak('Correct!');
+                    // Only show "Correct!" if enough time has passed since last correct
+                    if (now - lastCorrectTime >= correctCooldown) {
+                        document.getElementById('feedback').textContent = '✓ Correct!';
+                        document.getElementById('feedback').className = 'feedback correct';
+                        speak('Correct!');
+                        lastCorrectTime = now;
+                    }
                 } else {
                     document.getElementById('feedback').textContent = '✗ Try Again';
                     document.getElementById('feedback').className = 'feedback wrong';
                     // NO voice feedback for "Try Again" - removed speak('Try again');
                 }
+            } else if (detectedKeypoints < minKeypoints) {
+                // No person detected - clear feedback
+                document.getElementById('feedback').textContent = '';
+                document.getElementById('feedback').className = 'feedback';
             }
         }
 
